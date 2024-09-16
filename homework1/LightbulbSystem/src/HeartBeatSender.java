@@ -10,6 +10,8 @@ public class HeartBeatSender implements Runnable{
 
     private PrintWriter printWriter;
 
+    private static int SEND_INTERVAL = 1000;
+
     public HeartBeatSender() throws IOException {
         initializeSockets();
     }
@@ -31,7 +33,7 @@ public class HeartBeatSender implements Runnable{
 
                 System.out.println("Sent heartbeat to Lightbulb Controller");
 
-                Thread.sleep(1000);
+                Thread.sleep(SEND_INTERVAL);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

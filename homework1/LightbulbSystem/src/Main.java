@@ -6,7 +6,7 @@ public class Main {
         heartBeatThread.start();
 
         //Sleeps the main thread for 10secs
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         //Shutsdown the process including heartbeatthread
         //this is how we should shutdown the system so that it never sends heartbeat after this
         //triggering the other system to find a fault
