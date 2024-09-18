@@ -1,8 +1,26 @@
+import AsyncConcreteSystemComponents.HeartBeatSender;
+import AsyncConcreteSystemComponents.Sensor;
+import PortInAndOut.SinglePortDataOut;
+
 import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        Thread heartBeatThread = new Thread(new HeartBeatSender());
+        SinglePortDataOut singlePortDataOut = new SinglePortDataOut();
+        Thread singlePortDataExchangeThread = new Thread(singlePortDataOut);
+        System.out.println("Starting data exchange thread");
+        singlePortDataExchangeThread.start();
+
+
+        Sensor sensor = new Sensor(singlePortDataOut);
+        Thread sensorThread = new Thread(sensor);
+        sensorThread.start();
+        System.out.println("Starting AsyncConcreteSystemComponents.Sensor");
+
+
+        //only start after the entire system has been started? or start at the beginning?
+        Thread heartBeatThread = new Thread(new HeartBeatSender(singlePortDataOut));
+        System.out.println("Starting Heartbeat Thread");
         heartBeatThread.start();
 
         //Sleeps the main thread for 10secs
