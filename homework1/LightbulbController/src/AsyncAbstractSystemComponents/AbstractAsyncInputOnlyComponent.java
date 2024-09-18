@@ -1,5 +1,8 @@
 package AsyncAbstractSystemComponents;
 
+import PortInAndOut.SinglePortDataIn;
+import PortInAndOut.SinglePortDataOut;
+
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class AbstractAsyncInputOnlyComponent implements Runnable{

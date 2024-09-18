@@ -1,11 +1,17 @@
 package controller;
 
 import AsyncAbstractSystemComponents.AbstractAsyncBidirectionalComponent;
+import AsyncAbstractSystemComponents.AbstractAsyncInputOnlyComponent;
+import AsyncConcreteSystemComponents.Sensor;
 
 public class PortDataInController {
 
     //Instance of Bulb
     private AbstractAsyncBidirectionalComponent component;
+
+
+    public PortDataInController(){
+    }
 
     /**
      *
