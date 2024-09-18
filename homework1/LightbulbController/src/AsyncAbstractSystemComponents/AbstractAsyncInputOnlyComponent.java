@@ -10,7 +10,7 @@ public abstract class AbstractAsyncInputOnlyComponent implements Runnable{
     //read and write from multiple threads
     protected final ConcurrentLinkedQueue<String> inputDataQueue;
 
-    protected AbstractAsyncInputOnlyComponent() {
+    public AbstractAsyncInputOnlyComponent() {
         inputDataQueue = new ConcurrentLinkedQueue<>();
     }
 

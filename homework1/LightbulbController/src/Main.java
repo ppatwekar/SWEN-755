@@ -1,6 +1,7 @@
 import AsyncConcreteSystemComponents.HeartBeatReceiver;
 import FaultMonitor.FaultMonitorService;
 import PortInAndOut.SinglePortDataIn;
+import PortInAndOut.SinglePortDataOut;
 import controller.PortDataInController;
 
 import java.io.IOException;
@@ -20,6 +21,13 @@ public class Main {
         PortDataInController portDataInController = new PortDataInController();
 
         SinglePortDataIn singlePortDataIn = new SinglePortDataIn(clientSocket,portDataInController);
+        Thread portInThread = new Thread(singlePortDataIn);
+        portInThread.start();
+
+        SinglePortDataOut singlePortDataOut = new SinglePortDataOut();
+        Thread portOutThread = new Thread(singlePortDataOut);
+        portOutThread.start();
+
 
         Thread heartBeatThread = new Thread(new HeartBeatReceiver(faultMonitorService,singlePortDataIn));
         heartBeatThread.start();
