@@ -12,14 +12,13 @@ public class SinglePortDataOut implements Runnable{
 
     private PrintWriter printWriter;
 
-    public SinglePortDataOut() throws IOException {
+    public SinglePortDataOut(Socket socket) throws IOException {
+        this.socket = socket;
         initializeSockets();
         dataOutQueue = new ConcurrentLinkedQueue<>();
     }
 
     private void initializeSockets() throws IOException {
-        socket = new Socket("localhost",42975);
-        System.out.println("Connected to the LightBulb Controller!");
         printWriter = new PrintWriter(socket.getOutputStream());
     }
 

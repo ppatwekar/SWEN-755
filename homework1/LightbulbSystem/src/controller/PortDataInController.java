@@ -6,7 +6,7 @@ import AsyncConcreteSystemComponents.Sensor;
 
 public class PortDataInController {
 
-    //Instance of Bulb
+    //Use Instance of Bulb instead of this. This is only a placeholder
     private AbstractAsyncBidirectionalComponent component;
 
 
@@ -19,6 +19,7 @@ public class PortDataInController {
      *              the 'Something' helps indicate where to send the data"
      */
     public void processInput(String input){
+        System.out.println("PortDataInController: Received"+input);
         if(input.startsWith("Something")){
             component.addInputDataToQueue(input);
         }

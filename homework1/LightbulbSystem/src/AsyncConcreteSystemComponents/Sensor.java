@@ -29,11 +29,12 @@ public class Sensor extends AbstractAsyncOutputOnlyComponent {
 
     private String generateSensorData() throws Exception {
         //can generate exception 10% of times
-        generatePotentiallyRandomException();
+        //generatePotentiallyRandomException();
 
         //generate random sensor data
-
-       return "";
+        double possiblityThatSensorDetectsSomeone = Math.random();
+        System.out.println("Sensor: Generated "+possiblityThatSensorDetectsSomeone);
+       return "Sensor "+possiblityThatSensorDetectsSomeone;
     }
 
     private void generatePotentiallyRandomException() throws Exception {

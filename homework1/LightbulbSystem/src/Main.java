@@ -15,24 +15,26 @@ public class Main {
 
         SinglePortDataOut singlePortDataOut = new SinglePortDataOut(socket);
         Thread singlePortDataExchangeThread = new Thread(singlePortDataOut);
-        System.out.println("Starting data exchange thread");
+        System.out.println("Main: Starting data out thread");
         singlePortDataExchangeThread.start();
-
 
 
         Sensor sensor = new Sensor(singlePortDataOut);
         Thread sensorThread = new Thread(sensor);
         sensorThread.start();
-        System.out.println("Starting AsyncConcreteSystemComponents.Sensor");
+        System.out.println("Main: Starting AsyncConcreteSystemComponents.Sensor");
 
         PortDataInController portDataInController = new PortDataInController();
 
         SinglePortDataIn singlePortDataIn = new SinglePortDataIn(socket, portDataInController);
+        Thread dataInThread = new Thread(singlePortDataIn);
+        System.out.println("Main: Starting data in Thread");
+        dataInThread.start();
 
 
         //only start after the entire system has been started? or start at the beginning?
         Thread heartBeatThread = new Thread(new HeartBeatSender(singlePortDataOut));
-        System.out.println("Starting Heartbeat Thread");
+        System.out.println("Main: Starting Heartbeat Thread");
         heartBeatThread.start();
 
         //Sleeps the main thread for 10secs

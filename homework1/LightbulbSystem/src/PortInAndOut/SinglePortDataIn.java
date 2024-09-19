@@ -31,7 +31,10 @@ public class SinglePortDataIn implements Runnable{
         while(true){
             try {
                 String dataIn = bufferedReader.readLine();
-                portDataInController.processInput(dataIn);
+                if(dataIn!=null) {
+                    System.out.println("SinglePortDataIn: Received " + dataIn);
+                    portDataInController.processInput(dataIn);
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
