@@ -11,50 +11,56 @@ import java.net.Socket;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
+        // Setup the server socket to accept a connection from the Lightbulb System
         ServerSocket serverSocket = new ServerSocket(42975);
         System.out.println("Main: Waiting to connect to the Lightbulb System...");
-        Socket clientSocket = serverSocket.accept();
-        System.out.println("Main: Connected to the Lightbulb system!");
+        Socket clientSocket = serverSocket.accept(); // Blocking call, waits for client connection
+        System.out.println("Main: Connected to the Lightbulb System!");
 
-
+        // Initialize the FaultMonitorService to handle any faults
         FaultMonitorService faultMonitorService = new FaultMonitorService();
 
-
-        //check if it should be serversocket or client socket.
+        // Set up the port for sending data out to the Lightbulb System
         SinglePortDataOut singlePortDataOut = new SinglePortDataOut(clientSocket);
         Thread portOutThread = new Thread(singlePortDataOut);
 
+        // Set up the sensor receiver and Lightbulb sender to send data to the Lightbulb system
         SensorReceiverLightbulbSender sensorReceiverLightbulbSender = new SensorReceiverLightbulbSender(singlePortDataOut);
         Thread sensorReceiverLightBulbSendorThread = new Thread(sensorReceiverLightbulbSender);
 
+        // Set up the input controller for receiving data from the Lightbulb System
         PortDataInController portDataInController = new PortDataInController();
 
-        SinglePortDataIn singlePortDataIn = new SinglePortDataIn(clientSocket,portDataInController);
+        // Set up the port for receiving data in from the Lightbulb System
+        SinglePortDataIn singlePortDataIn = new SinglePortDataIn(clientSocket, portDataInController);
         Thread portInThread = new Thread(singlePortDataIn);
 
-
-        HeartBeatReceiver heartBeatReceiver = new HeartBeatReceiver(faultMonitorService,singlePortDataIn);
+        // Set up the HeartBeatReceiver to monitor heartbeats from the Lightbulb System
+        HeartBeatReceiver heartBeatReceiver = new HeartBeatReceiver(faultMonitorService, singlePortDataIn);
         Thread heartBeatThread = new Thread(heartBeatReceiver);
 
-
+        // Connect the PortDataInController with the HeartBeatReceiver and the SensorReceiver
         portDataInController.setHeartBeatReceiver(heartBeatReceiver);
         portDataInController.setSensorReceiverLightbulbSender(sensorReceiverLightbulbSender);
 
-        System.out.println("Main: Starting portout thread");
+        // Start the threads to handle communication and monitoring
+        System.out.println("Main: Starting portOut thread");
         portOutThread.start();
 
         System.out.println("Main: Starting portInThread");
         portInThread.start();
 
-        System.out.println("Main: Starting sensorReceiverLightBulbSendorThread");
+        System.out.println("Main: Starting sensorReceiverLightbulbSenderThread");
         sensorReceiverLightBulbSendorThread.start();
 
-        System.out.println("Main: Starting HeartBeat Thread");
+        System.out.println("Main: Starting HeartBeatReceiver Thread");
         heartBeatThread.start();
 
-        //Sleeps the main thread for 12secs
+        // Sleep the main thread to allow the system to operate for 15 seconds
         Thread.sleep(15000);
-        //Shutsdown the process including heartbeatthread
+
+        // Shut down the process after 15 seconds (all threads are terminated)
+        System.out.println("Main: Shutting down system...");
         System.exit(0);
     }
 }

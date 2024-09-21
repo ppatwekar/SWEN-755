@@ -22,14 +22,16 @@ public class Sensor extends AbstractAsyncOutputOnlyComponent {
 
             } catch (Exception e) {
                 //try to crash the program using this
-                throw new RuntimeException(e);
+                System.out.println(e.getMessage());
+                System.exit(-1);
+                //throw new RuntimeException(e);
             }
         }
     }
 
     private String generateSensorData() throws Exception {
         //can generate exception 10% of times
-        //generatePotentiallyRandomException();
+        generatePotentiallyRandomException();
 
         //generate random sensor data
         double possiblityThatSensorDetectsSomeone = Math.random();
@@ -38,7 +40,7 @@ public class Sensor extends AbstractAsyncOutputOnlyComponent {
     }
 
     private void generatePotentiallyRandomException() throws Exception {
-        if (Math.random() > 0.90){
+        if (Math.random() > 0.70){
             throw new Exception("Random Exception Occurred in AsyncConcreteSystemComponents.Sensor System...");
         }
     }

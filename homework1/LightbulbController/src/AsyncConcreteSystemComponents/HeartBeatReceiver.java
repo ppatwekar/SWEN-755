@@ -25,12 +25,20 @@ public class HeartBeatReceiver extends AbstractAsyncInputOnlyComponent {
         this.faultMonitorService = faultMonitorService;
     }
 
-    private boolean detectFault(String beat, long currentTime){
-        if(beat == null || (currentTime - lastUpdatedHeartBeatTimeInMills > MAX_WAITING_TIME)){
-            System.out.println("Failure Detected. Sending to Fault Monitor");
-            faultMonitorService.reportFault();
+    // Detects fault by checking if the heartbeat is null or if the waiting time exceeds the threshold
+    private boolean detectFault(String beat, long currentTime) {
+        if (beat == null) {
+            System.out.println("Null Heartbeat Detected. Sending to Fault Monitor.");
+            faultMonitorService.reportFault("null"); // Reporting a null fault
             return true;
         }
+
+        if (currentTime - lastUpdatedHeartBeatTimeInMills > MAX_WAITING_TIME) {
+            System.out.println("Time-based Failure Detected. Sending to Fault Monitor.");
+            faultMonitorService.reportFault("time"); // Reporting a time-based fault
+            return true;
+        }
+
         return false;
     }
 
@@ -38,12 +46,15 @@ public class HeartBeatReceiver extends AbstractAsyncInputOnlyComponent {
     protected void processInput(String beat) {
         long currentTime = System.currentTimeMillis();
 
-        detectFault(beat,currentTime);
+        // Detect any faults in the heartbeat
+        if (detectFault(beat, currentTime)) {
+            return; // Exit if fault detected
+        }
 
+        // Update the last heartbeat received time
         lastUpdatedHeartBeatTimeInMills = currentTime;
 
-        System.out.println("Received "+beat+" from LightBulb System");
-
+        System.out.println("Received '" + beat + "' from LightBulb System");
     }
 
 }
