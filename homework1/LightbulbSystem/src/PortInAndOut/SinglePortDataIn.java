@@ -1,5 +1,6 @@
 package PortInAndOut;
 
+import FaultMonitor.FaultMonitorService;
 import controller.PortDataInController;
 
 import java.io.BufferedReader;
@@ -15,11 +16,15 @@ public class SinglePortDataIn implements Runnable{
 
     private PortDataInController portDataInController;
 
+    private  FaultMonitorService fm;
 
-    public SinglePortDataIn(Socket socket, PortDataInController portDataInController) throws IOException {
+
+    public SinglePortDataIn(Socket socket, PortDataInController portDataInController, FaultMonitorService faultMonitorService) throws IOException {
+        fm = faultMonitorService;
         this.socket = socket;
         this.portDataInController = portDataInController;
         initializeSocketInput();
+
     }
 
     private void initializeSocketInput() throws IOException {
@@ -35,8 +40,9 @@ public class SinglePortDataIn implements Runnable{
                     System.out.println("SinglePortDataIn: Received " + dataIn);
                     portDataInController.processInput(dataIn);
                 }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (IOException e)
+            {
+                fm.reportFault("socket");
             }
         }
     }

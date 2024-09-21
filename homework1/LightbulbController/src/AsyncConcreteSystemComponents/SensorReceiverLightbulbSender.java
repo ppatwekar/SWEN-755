@@ -16,11 +16,12 @@ public class SensorReceiverLightbulbSender extends AbstractAsyncBidirectionalCom
     protected void processInput(String s) {
         System.out.println("SensorReceiverLightbulbSender: Processing "+s);
         double probability = Double.parseDouble(s.substring(7));
-        if(probability > 0.5){
-            currentGreaterThan50Count = Math.min(currentGreaterThan50Count+1, NUM_COUNTS_TO_SWITCH_ON_LIGHT);
+        if(probability > 0.5)
+        {
+            currentGreaterThan50Count = currentGreaterThan50Count + 1 == 10 ? 10 : (currentGreaterThan50Count + 1);
         }
         else{
-            currentGreaterThan50Count = Math.max(0,currentGreaterThan50Count-1);
+            currentGreaterThan50Count = (currentGreaterThan50Count - 1 == 0 ? 0 : currentGreaterThan50Count - 1);
         }
 
         System.out.println("SensorReceiverLightbulbSender: currentCount="+currentGreaterThan50Count);
@@ -28,7 +29,8 @@ public class SensorReceiverLightbulbSender extends AbstractAsyncBidirectionalCom
         if(currentGreaterThan50Count > NUM_COUNTS_TO_SWITCH_ON_LIGHT){
             this.singlePortDataOut.putInQueue("LightBulb ON");
         }
-        else if(currentGreaterThan50Count == 0){
+        else
+        {
             this.singlePortDataOut.putInQueue("LightBulb OFF");
         }
     }

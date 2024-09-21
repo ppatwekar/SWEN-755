@@ -1,16 +1,23 @@
 package controller;
-
-import AsyncAbstractSystemComponents.AbstractAsyncBidirectionalComponent;
 import AsyncAbstractSystemComponents.AbstractAsyncInputOnlyComponent;
-import AsyncConcreteSystemComponents.Sensor;
+import AsyncAbstractSystemComponents.LightBulb;
+
+import java.io.IOException;
 
 public class PortDataInController {
 
     //Use Instance of Bulb instead of this. This is only a placeholder
-    private AbstractAsyncBidirectionalComponent component;
+    private LightBulb lightBulbComponent;
 
 
-    public PortDataInController(){
+    public PortDataInController() throws IOException
+    {
+
+    }
+
+    public void setComponent(LightBulb component)
+    {
+        lightBulbComponent = component;
     }
 
     /**
@@ -20,8 +27,10 @@ public class PortDataInController {
      */
     public void processInput(String input){
         System.out.println("PortDataInController: Received"+input);
-        if(input.startsWith("Something")){
-            component.addInputDataToQueue(input);
+        //System.out.println("Got here");
+        if(input.contains("LightBulb")){
+            System.out.println("IF"+input);
+            lightBulbComponent.addInputDataToQueue(input);
         }
     }
 }

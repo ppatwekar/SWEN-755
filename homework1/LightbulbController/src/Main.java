@@ -8,6 +8,7 @@ import controller.PortDataInController;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -32,7 +33,7 @@ public class Main {
         PortDataInController portDataInController = new PortDataInController();
 
         // Set up the port for receiving data in from the Lightbulb System
-        SinglePortDataIn singlePortDataIn = new SinglePortDataIn(clientSocket, portDataInController);
+        SinglePortDataIn singlePortDataIn = new SinglePortDataIn(clientSocket, portDataInController, faultMonitorService);
         Thread portInThread = new Thread(singlePortDataIn);
 
         // Set up the HeartBeatReceiver to monitor heartbeats from the Lightbulb System
@@ -56,11 +57,16 @@ public class Main {
         System.out.println("Main: Starting HeartBeatReceiver Thread");
         heartBeatThread.start();
 
-        // Sleep the main thread to allow the system to operate for 15 seconds
-        Thread.sleep(15000);
-
-        // Shut down the process after 15 seconds (all threads are terminated)
-        System.out.println("Main: Shutting down system...");
-        System.exit(0);
+        while(true)
+        {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Controller State : die");
+            String input = scanner.nextLine();
+            System.out.println(input);
+            if(input.equals("die"))
+            {
+                System.exit(0);
+            }
+        }
     }
 }
