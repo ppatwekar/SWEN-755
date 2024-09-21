@@ -40,7 +40,7 @@ public class Sensor extends AbstractAsyncOutputOnlyComponent {
     }
 
     private void generatePotentiallyRandomException() throws Exception {
-        if (Math.random() > 0.70){
+        if (Math.random() > 0.60){
             throw new Exception("Random Exception Occurred in AsyncConcreteSystemComponents.Sensor System...");
         }
     }
