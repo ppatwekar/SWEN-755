@@ -8,20 +8,20 @@ Manikantan Lakshmanan Eakiri (me2083@rit.edu)
 Running the Project
 Make sure you have Java 17+ installed on your local system to be able to run this project. This can be configured into Intellij to run both projects. 
 
-Step 0)
+Step 1.
 Unzip the package into a new directory
 Using a integrated development environment (Intellij) was used by team.
 Open from the LightBulbController folder level in one instance.
 Open from the LightBulbSystem folder level in a different instance .
 
-Step 1) Run the LightBulbController service using main.java
-Step 2) Run the LightBulbSystem service using main.java 
+Step 2. Run the LightBulbController service using main.java
+Step 3. Run the LightBulbSystem service using main.java 
 
-Step 3) Observe output from each one as explained below
-Step 4) Type hearbeat into LighbulbSystem console to begin random 
+Step 4. Observe output from each one as explained below
+Step 5. Type hearbeat into LighbulbSystem console to begin random 
 hearbeat failiure 
-Step 5) Restart at step 1 - 3 
-Step 6) Type sensor into LighbulbSystem which will cause an exeception to 
+Step 6. Restart at step 1 - 3 
+Step 7. Type sensor into LighbulbSystem which will cause an exeception to 
 randomly occur at percentage and kill the lightbulb.
 
 Additional command below simulate movement/lack of movement in the office.
