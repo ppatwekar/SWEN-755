@@ -12,14 +12,13 @@ Step 1.
 Unzip the package into a new directory
 Using a integrated development environment (Intellij) was used by team.
 Open from the LightBulbController folder level in one instance.
-Open from the LightBulbSystem folder level in a different instance .
+Open from the LightBulbSystem folder level in a different instance.
 
 Step 2. Run the LightBulbController service using main.java
 Step 3. Run the LightBulbSystem service using main.java 
-
 Step 4. Observe output from each one as explained below
 Step 5. Type hearbeat into LighbulbSystem console to begin random 
-hearbeat failiure 
+hearbeat failure 
 Step 6. Restart at step 1 - 3 
 Step 7. Type sensor into LighbulbSystem which will cause an exeception to 
 randomly occur at percentage and kill the lightbulb.
