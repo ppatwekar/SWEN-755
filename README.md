@@ -10,15 +10,27 @@ Make sure you have Java 17+ installed on your local system to be able to run thi
 
 Step 0)
 Unzip the package into a new directory
-Using a integrated development environment (Intellij) was used by team
-Open from the LightBulbController folder level in one instance 
-Open from the LightBulbSystem folder level in a different instance 
+Using a integrated development environment (Intellij) was used by team.
+Open from the LightBulbController folder level in one instance.
+Open from the LightBulbSystem folder level in a different instance .
 
 Step 1) Run the LightBulbController service using main.java
 Step 2) Run the LightBulbSystem service using main.java 
 
-Initial Setup:
+Step 3) Observe output from each one as explained below
+Step 4) Type hearbeat into LighbulbSystem console to begin random 
+hearbeat failiure 
+Step 5) Restart at step 1 - 3 
+Step 6) Type sensor into LighbulbSystem which will cause an exeception to 
+randomly occur at percentage and kill the lightbulb.
 
+Additional command below simulate movement/lack of movement in the office.
+
+Also see video for assistance:
+https://drive.google.com/file/d/12aj9i1tNhlGH9wkeoasDTVsAxdl6CXG4/view?usp=drivesdk
+
+
+Initial Setup:
 Main: Waiting to connect to the Lightbulb System... → The system is preparing to connect to the lightbulb service.
 Main: Connected to the Lightbulb System! → The connection is successfully established.
 Various threads are started:
@@ -41,12 +53,7 @@ The currentCount is an internal counter that affects whether the lightbulb is tu
 Negative or low values (currentCount=-1, -2, etc.) result in the bulb being turned OFF.
 Higher values (currentCount=4, 5, 6, etc.) result in the bulb being turned ON.
 
-Step 4: Open the LightBulbSystem project. 
-
-Step 5: Run the main method.
-
-Step 6: Show the output from LightBulbSystem
-
+Lighbulb System Outlut:
 The output from your LightBulbSystem file shows the sequence of interactions between several system components, particularly focusing on the LightBulb Controller, sensor-generated data, and the status of the lightbulb (ON/OFF). Here’s a breakdown of the key events happening in the output:
 Connection Established:
 "Connected to the LightBulb Controller!" indicates that the system successfully established communication with the controller.
