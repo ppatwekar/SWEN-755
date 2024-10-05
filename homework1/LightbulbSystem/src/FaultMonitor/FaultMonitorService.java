@@ -8,7 +8,7 @@ public class FaultMonitorService {
 //    }
 //
 //}
-    public void reportFault(String faultType) {
+    public static void reportFault(String faultType) {
         switch (faultType) {
             case "time":
                 handleTimeFault();
@@ -27,32 +27,31 @@ public class FaultMonitorService {
     }
 
     // Fault detection for time-based issues
-    private void handleTimeFault() {
+    private static void handleTimeFault() {
         System.out.println("Time-based fault detected: System timeout or delay");
         // Add specific logic to handle time-related faults, such as retrying operations or triggering alerts.
     }
 
     // Fault detection for socket-related issues
-    private void handleSocketFault() {
+    private static void handleSocketFault() {
         System.out.println("Socket fault detected: Connection issues");
         // Add logic to handle socket-related faults, such as retrying the connection or logging the error.
     }
 
     // Fault detection for null value issues
-    private void handleNullFault() {
+    private static void handleNullFault() {
         System.out.println("Null fault detected: Null reference encountered");
         // Add logic to handle null pointer exceptions or log relevant info.
     }
 
     // Example main function for testing
     public static void main(String[] args) {
-        FaultMonitorService faultMonitor = new FaultMonitorService();
 
         // Test different fault cases
-        faultMonitor.reportFault("time");
-        faultMonitor.reportFault("socket");
-        faultMonitor.reportFault("null");
-        faultMonitor.reportFault("unknown");
+        FaultMonitorService.reportFault("time");
+        FaultMonitorService.reportFault("socket");
+        FaultMonitorService.reportFault("null");
+        FaultMonitorService.reportFault("unknown");
     }
 }
 

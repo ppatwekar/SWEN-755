@@ -2,7 +2,7 @@ package AsyncAbstractSystemComponents;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public abstract class AbstractAsyncInputOnlyComponent implements Runnable{
+public abstract class AbstractAsyncInputOnlyComponent implements DataInSubscriber{
 
     //read and write from multiple threads
     protected final ConcurrentLinkedQueue<String> inputDataQueue;
@@ -25,6 +25,11 @@ public abstract class AbstractAsyncInputOnlyComponent implements Runnable{
         while(true){
             processSingleInputData();
         }
+    }
+
+    @Override
+    public void update(String data) {
+        addInputDataToQueue(data);
     }
 
     protected abstract void processInput(String s);

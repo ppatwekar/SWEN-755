@@ -1,72 +1,56 @@
-import AsyncAbstractSystemComponents.LightBulb;
+import AsyncConcreteSystemComponents.LightBulb;
 import AsyncConcreteSystemComponents.HeartBeatSender;
 import AsyncConcreteSystemComponents.Sensor;
 import FaultMonitor.FaultMonitorService;
-import PortInAndOut.SinglePortDataIn;
-import PortInAndOut.SinglePortDataOut;
-import controller.PortDataInController;
+import PortInAndOut.PortDataInManager;
+import PortInAndOut.PortDataOutManager;
+import SocketFun.SocketManager;
 
-import javax.swing.plaf.TableHeaderUI;
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        //LightBulb.LightGUI lg = new LightBulb.LightGUI();
-        //lg.toggleLight(true);
-        //Thread.sleep(5000);
-        //lg.toggleLight(false);
+        PortDataInManager portDataInManager = PortDataInManager.getInstance();
+        PortDataOutManager portDataOutManager = PortDataOutManager.getInstance();
 
-        //while(true){}
-        //System.exit(0);
-        FaultMonitorService faultMonitorService = new FaultMonitorService();
+        final int lightBulbControllerPort = 42975;
         Socket socket = null;
 
         try {
-            socket = new Socket("localhost", 42975);
+            socket = SocketManager.createSocket(lightBulbControllerPort);
         }
-        catch(ConnectException e)
+        catch(IOException e)
         {
-            faultMonitorService.reportFault("socket");
+            FaultMonitorService.reportFault("socket");
         }
         System.out.println("Connected to the LightBulb Controller!");
 
 
-        SinglePortDataOut singlePortDataOut = new SinglePortDataOut(socket);
-        Thread singlePortDataExchangeThread = new Thread(singlePortDataOut);
-        System.out.println("Main: Starting data out thread");
-        singlePortDataExchangeThread.start();
-
-
-        Sensor sensor = new Sensor(singlePortDataOut);
+        Sensor sensor = new Sensor(lightBulbControllerPort);
+        portDataOutManager.bindOutPutComponentToPortDataOut(lightBulbControllerPort,sensor);
         Thread sensorThread = new Thread(sensor);
         sensorThread.start();
         System.out.println("Main: Starting AsyncConcreteSystemComponents.Sensor");
 
         LightBulb lightBulb = new LightBulb();
+        portDataInManager.subscribe(lightBulbControllerPort,lightBulb,"LightBulb");
         Thread lightBulbThread = new Thread(lightBulb);
-
-        PortDataInController portDataInController = new PortDataInController();
-        portDataInController.setComponent(lightBulb);
-        SinglePortDataIn singlePortDataIn = new SinglePortDataIn(socket, portDataInController, faultMonitorService);
-
-
-        Thread dataInThread = new Thread(singlePortDataIn);
-        System.out.println("Main: Starting data in Thread");
-        dataInThread.start();
-
         lightBulbThread.start();
 
-        HeartBeatSender heartBeatSender = new HeartBeatSender(singlePortDataOut);
-        //only start after the entire system has been started? or start at the beginning?
+
+        HeartBeatSender heartBeatSender = new HeartBeatSender(lightBulbControllerPort);
+        portDataOutManager.bindOutPutComponentToPortDataOut(lightBulbControllerPort, heartBeatSender);
         Thread heartBeatThread = new Thread(heartBeatSender);
         System.out.println("Main: Starting Heartbeat Thread");
         heartBeatThread.start();
 
-        //Sleeps the main thread for 10secs
+        handleCommandInput(socket, heartBeatSender, sensor);
+    }
+
+    public static void handleCommandInput(Socket socket, HeartBeatSender heartBeatSender, Sensor sensor) throws IOException, InterruptedException {
         while(true)
         {
             Scanner scanner = new Scanner(System.in);

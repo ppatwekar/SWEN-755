@@ -11,9 +11,9 @@ public class HeartBeatSender extends AbstractAsyncOutputOnlyComponent {
     Random random;
     private long sendInterval = SEND_INTERVAL;
     boolean heartBeatRandom = false;
-    public HeartBeatSender(SinglePortDataOut singlePortDataOut) {
+    public HeartBeatSender(int port) {
 
-        super(singlePortDataOut);
+        super(port);
         random = new Random();
     }
 

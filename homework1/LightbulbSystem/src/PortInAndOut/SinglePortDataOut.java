@@ -1,25 +1,18 @@
 package PortInAndOut;
 
+import SocketFun.SocketManager;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class SinglePortDataOut implements Runnable{
+public class SinglePortDataOut extends AbstractPortData implements Runnable{
     private ConcurrentLinkedQueue<String> dataOutQueue;
 
-    private Socket socket;
-
-    private PrintWriter printWriter;
-
-    public SinglePortDataOut(Socket socket) throws IOException {
-        this.socket = socket;
-        initializeSockets();
+    public SinglePortDataOut(int port) {
+        super(port);
         dataOutQueue = new ConcurrentLinkedQueue<>();
-    }
-
-    private void initializeSockets() throws IOException {
-        printWriter = new PrintWriter(socket.getOutputStream());
     }
 
     public void putInQueue(String data){
@@ -36,8 +29,8 @@ public class SinglePortDataOut implements Runnable{
         while (true){
             String data = this.getFromQueue();
             if(data != null) {
-                printWriter.println(data);
-                printWriter.flush();
+                SocketManager.getPrintWriter(port).println(data);
+                SocketManager.getPrintWriter(port).flush();
                 System.out.println("Sent " + data + " to LightControllerService");
             }
         }

@@ -14,7 +14,7 @@ import java.net.Socket;
 public class HeartBeatReceiver extends AbstractAsyncInputOnlyComponent {
 
 
-    private static int MAX_WAITING_TIME = 2000;
+    private static int MAX_WAITING_TIME = 5000;
 
     private long lastUpdatedHeartBeatTimeInMills;
 

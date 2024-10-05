@@ -1,4 +1,6 @@
-package AsyncAbstractSystemComponents;
+package AsyncConcreteSystemComponents;
+
+import AsyncAbstractSystemComponents.AbstractAsyncInputOnlyComponent;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -23,6 +25,8 @@ public class LightBulb extends AbstractAsyncInputOnlyComponent
         System.out.println("PROCESS INPUT: "+s);
         lightGUI.toggleLight(!s.contains("OFF"));
     }
+
+
 
     public static class LightGUI extends JFrame {
 

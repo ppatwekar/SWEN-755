@@ -12,8 +12,8 @@ public class Sensor extends AbstractAsyncOutputOnlyComponent {
     Random randomSensor;
     String sensorState = "random";
     int flickerCounter = 0;
-    public Sensor(SinglePortDataOut singlePortDataOut){
-        super(singlePortDataOut);
+    public Sensor(int port){
+        super(port);
         randomSensor = new Random();
     }
 
