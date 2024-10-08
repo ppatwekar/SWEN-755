@@ -42,7 +42,6 @@ public class LightBulb extends AbstractAsyncInputOnlyComponent
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setLayout(new FlowLayout());
 
-
             //office image light on
             imageOn = ImageIO.read(Objects.requireNonNull(this.getClass().getResource("office_simple.JPG")));
             System.out.println(imageOn.toString());

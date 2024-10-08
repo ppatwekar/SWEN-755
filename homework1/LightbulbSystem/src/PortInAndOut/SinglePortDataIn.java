@@ -24,13 +24,16 @@ public class SinglePortDataIn extends AbstractPortData implements Runnable{
     public void run() {
         while(true){
             try {
-                String dataIn = SocketManager.getBufferedReader(port).readLine();
-                if(dataIn!=null) {
-                    System.out.println("SinglePortDataIn: Received " + dataIn);
-                    portDataInController.processInput(dataIn);
+                if(SocketManager.isReadyToUse(port)){
+                    String dataIn = SocketManager.getBufferedReader(port).readLine();
+                    if (dataIn != null) {
+                        System.out.println("SinglePortDataIn: Received " + dataIn);
+                        portDataInController.processInput(dataIn);
+                    }
                 }
             } catch (IOException e)
             {
+                SocketManager.unableToConnectToPort(port);
                 FaultMonitorService.reportFault("socket");
             }
         }

@@ -1,5 +1,6 @@
 import AsyncConcreteSystemComponents.LightBulb;
 import AsyncConcreteSystemComponents.HeartBeatSender;
+import AsyncConcreteSystemComponents.PassiveComponentBridgeConnector;
 import AsyncConcreteSystemComponents.Sensor;
 import FaultMonitor.FaultMonitorService;
 import PortInAndOut.PortDataInManager;
@@ -48,6 +49,17 @@ public class Main {
         heartBeatThread.start();
 
         handleCommandInput(socket, heartBeatSender, sensor);
+
+        /*
+
+        Note: Please create a server using the passive port on the active component first
+
+        int passivePort = 455677;
+        PassiveComponentBridgeConnector passiveComponentBridgeConnector = new PassiveComponentBridgeConnector();
+        portDataInManager.subscribe(lightBulbControllerPort,passiveComponentBridgeConnector,"all");
+        portDataOutManager.bindOutPutComponentToPortDataOut(passivePort,passiveComponentBridgeConnector);
+
+         */
     }
 
     public static void handleCommandInput(Socket socket, HeartBeatSender heartBeatSender, Sensor sensor) throws IOException, InterruptedException {

@@ -1,4 +1,7 @@
 package FaultMonitor;
+
+import SocketFun.SocketManager;
+
 public class FaultMonitorService {
 
     //    public void reportFault(){
@@ -22,7 +25,8 @@ public class FaultMonitorService {
                 System.out.println("Unknown fault detected");
                 break;
         }
-        System.exit(0);
+        SocketManager.retryConnection();
+        //System.exit(0);
     }
 
     // Fault detection for time-based issues

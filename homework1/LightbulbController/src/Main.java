@@ -3,6 +3,8 @@ import AsyncConcreteSystemComponents.SensorReceiverLightbulbSender;
 import FaultMonitor.FaultMonitorService;
 import PortInAndOut.SinglePortDataIn;
 import PortInAndOut.SinglePortDataOut;
+import SocketFun.SocketManager;
+import SocketFun.SocketWrapper;
 import controller.PortDataInController;
 
 import java.io.IOException;
@@ -13,9 +15,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         // Setup the server socket to accept a connection from the Lightbulb System
-        ServerSocket serverSocket = new ServerSocket(42975);
-        System.out.println("Main: Waiting to connect to the Lightbulb System...");
-        Socket clientSocket = serverSocket.accept(); // Blocking call, waits for client connection
+
+        SocketWrapper clientSocket = SocketManager.createServer(42975); // Blocking call, waits for client connection
         System.out.println("Main: Connected to the Lightbulb System!");
 
         // Initialize the FaultMonitorService to handle any faults
@@ -60,7 +61,7 @@ public class Main {
         while(true)
         {
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Controller State : die");
+            //System.out.println("Controller State : die");
             String input = scanner.nextLine();
             System.out.println(input);
             if(input.equals("die"))

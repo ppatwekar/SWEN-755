@@ -13,10 +13,14 @@ public class SocketWrapper {
 
     private PrintWriter printWriter;
 
-    public SocketWrapper(Socket socket) throws IOException {
+    private boolean readyToUse;
+
+    private boolean connectionFromServerSocketAccept;
+
+    public SocketWrapper(Socket socket, boolean connectionIsFromServerSocketAccept) throws IOException {
+        this.connectionFromServerSocketAccept = connectionIsFromServerSocketAccept;
         this.socket = socket;
-        this.bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-        printWriter = new PrintWriter(socket.getOutputStream());
+        init(socket);
     }
 
     public BufferedReader getBufferedReader() {
@@ -25,5 +29,28 @@ public class SocketWrapper {
 
     public PrintWriter getPrintWriter() {
         return printWriter;
+    }
+
+    public void setReadyToUse(boolean readyToUse) {
+        this.readyToUse = readyToUse;
+    }
+
+    public boolean isReadyToUse() {
+        return readyToUse;
+    }
+
+    private void init(Socket socket) throws IOException {
+        bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+        printWriter = new PrintWriter(socket.getOutputStream());
+        readyToUse = true;
+    }
+
+    public void updateWithNewConnection(Socket socket) throws IOException {
+        this.socket = socket;
+        init(socket);
+    }
+
+    public boolean isConnectionFromServerSocketAccept() {
+        return connectionFromServerSocketAccept;
     }
 }

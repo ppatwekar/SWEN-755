@@ -52,7 +52,7 @@ public class HeartBeatReceiver extends AbstractAsyncInputOnlyComponent {
 
     @Override
     protected void processInput(String beat) {
-
+        System.out.println("222222 "+beat);
         if (detectFault(beat)) {
             return; // Exit if fault detected
         }
