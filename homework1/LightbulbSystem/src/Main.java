@@ -107,7 +107,7 @@ public class Main {
             lightBulbThread.start();
             while(!FaultMonitorService.faultDetected())
             {
-                //do nothing
+                System.out.println("Waiting for fault detection");
             }
             try
             {
