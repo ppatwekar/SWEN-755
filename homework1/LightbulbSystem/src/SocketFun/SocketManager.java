@@ -48,6 +48,7 @@ public class SocketManager {
 
     public static Socket createSocket(int port) throws IOException {
         Socket socket = new Socket(HOST,port);
+        System.out.println("Connected to port: " + port);
         socketWrapperMap.put(port,new SocketWrapper(socket, false));
 
         createNewPortsOnPortManagers(port);

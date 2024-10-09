@@ -8,6 +8,15 @@ public class FaultMonitorService {
 //    }
 //
 //}
+    static boolean  FAULT_REPORTED = false;
+    public static boolean faultDetected()
+    {
+        return FAULT_REPORTED;
+    }
+    public static void clearFault()
+    {
+        FAULT_REPORTED = false;
+    }
     public static void reportFault(String faultType) {
         switch (faultType) {
             case "time":
@@ -23,7 +32,8 @@ public class FaultMonitorService {
                 System.out.println("Unknown fault detected");
                 break;
         }
-        System.exit(0);
+        FAULT_REPORTED = true;
+        System.out.println("Successfully reported fault detected");
     }
 
     // Fault detection for time-based issues

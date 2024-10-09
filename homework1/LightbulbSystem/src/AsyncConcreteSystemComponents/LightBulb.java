@@ -15,7 +15,8 @@ public class LightBulb extends AbstractAsyncInputOnlyComponent
 {
     private LightGUI lightGUI;
 
-    public LightBulb() throws IOException {
+    public LightBulb() throws IOException
+    {
         lightGUI = new LightGUI();
     }
 
@@ -25,8 +26,6 @@ public class LightBulb extends AbstractAsyncInputOnlyComponent
         System.out.println("PROCESS INPUT: "+s);
         lightGUI.toggleLight(!s.contains("OFF"));
     }
-
-
 
     public static class LightGUI extends JFrame {
 

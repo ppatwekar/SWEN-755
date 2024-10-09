@@ -6,6 +6,7 @@ import FaultMonitor.FaultMonitorService;
 import PortInAndOut.PortDataInManager;
 import PortInAndOut.PortDataOutManager;
 import SocketFun.SocketManager;
+import SocketFun.SocketWrapper;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -14,41 +15,146 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        PortDataInManager portDataInManager = PortDataInManager.getInstance();
-        PortDataOutManager portDataOutManager = PortDataOutManager.getInstance();
-
+        boolean isActive = false;
+        final int  passivePort = 42976;
         final int lightBulbControllerPort = 42975;
         Socket socket = null;
 
-        try {
-            socket = SocketManager.createSocket(lightBulbControllerPort);
+        PortDataInManager portDataInManager = PortDataInManager.getInstance();
+        PortDataOutManager portDataOutManager = PortDataOutManager.getInstance();
+        int bulbPort = 0;
+
+        while(true)
+        {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Please Designate Light Type: active, inactive");
+            String input = scanner.nextLine();
+            System.out.println(input);
+            if (input.equals("active"))
+            {
+                isActive = true;
+                bulbPort = lightBulbControllerPort;
+                break;
+
+            }
+            if (input.equals("inactive"))
+            {
+                bulbPort = passivePort;
+                break;
+            }
+        }
+
+        try
+        {
+            socket = SocketManager.createSocket(bulbPort);
+
         }
         catch(IOException e)
         {
             FaultMonitorService.reportFault("socket");
         }
-        System.out.println("Connected to the LightBulb Controller!");
+
+        if(isActive)
+        {
+
+            //start backup listener
+            SocketManager.createServer(passivePort);
 
 
-        Sensor sensor = new Sensor(lightBulbControllerPort);
-        portDataOutManager.bindOutPutComponentToPortDataOut(lightBulbControllerPort,sensor);
-        Thread sensorThread = new Thread(sensor);
-        sensorThread.start();
-        System.out.println("Main: Starting AsyncConcreteSystemComponents.Sensor");
-
-        LightBulb lightBulb = new LightBulb();
-        portDataInManager.subscribe(lightBulbControllerPort,lightBulb,"LightBulb");
-        Thread lightBulbThread = new Thread(lightBulb);
-        lightBulbThread.start();
+            //backup connections
+            PassiveComponentBridgeConnector passiveComponentBridgeConnector = new PassiveComponentBridgeConnector();
+            portDataInManager.subscribe(lightBulbControllerPort,passiveComponentBridgeConnector,"all");
+            portDataOutManager.bindOutPutComponentToPortDataOut(passivePort,passiveComponentBridgeConnector);
+            Thread backupThread = new Thread(passiveComponentBridgeConnector);
+            backupThread.start();
 
 
-        HeartBeatSender heartBeatSender = new HeartBeatSender(lightBulbControllerPort);
-        portDataOutManager.bindOutPutComponentToPortDataOut(lightBulbControllerPort, heartBeatSender);
-        Thread heartBeatThread = new Thread(heartBeatSender);
-        System.out.println("Main: Starting Heartbeat Thread");
-        heartBeatThread.start();
+            System.out.println("Connected to the LightBulb Controller!");
 
-        handleCommandInput(socket, heartBeatSender, sensor);
+            LightBulb lightBulb = new LightBulb();
+            portDataInManager.subscribe(lightBulbControllerPort,lightBulb,"LightBulb");
+            Thread lightBulbThread = new Thread(lightBulb);
+            lightBulbThread.start();
+
+            Sensor sensor = new Sensor(lightBulbControllerPort);
+            portDataOutManager.bindOutPutComponentToPortDataOut(lightBulbControllerPort,sensor);
+            Thread sensorThread = new Thread(sensor);
+            sensorThread.start();
+            System.out.println("Main: Starting AsyncConcreteSystemComponents.Sensor");
+
+
+            HeartBeatSender heartBeatSender = new HeartBeatSender(lightBulbControllerPort);
+            portDataOutManager.bindOutPutComponentToPortDataOut(lightBulbControllerPort, heartBeatSender);
+            Thread heartBeatThread = new Thread(heartBeatSender);
+            System.out.println("Main: Starting Heartbeat Thread");
+            heartBeatThread.start();
+
+
+
+            handleCommandInput(socket, heartBeatSender, sensor);
+
+
+            //PassiveComponentBridgeConnector passiveComponentBridgeConnector = new PassiveComponentBridgeConnector();
+            //portDataOutManager.bindOutPutComponentToPortDataOut(passivePort,passiveComponentBridgeConnector);
+
+        }
+        else //inactive
+        {
+
+            LightBulb lightBulb = new LightBulb();
+            Thread lightBulbThread = new Thread(lightBulb);
+            portDataInManager.subscribe(passivePort,lightBulb,"LightBulb");
+            lightBulbThread.start();
+            while(!FaultMonitorService.faultDetected())
+            {
+                //do nothing
+                System.out.println("Main: Waiting for fault");
+            }
+            try
+            {
+                System.out.println("Connected to the LightBulb Controller!");
+                socket = SocketManager.createSocket(lightBulbControllerPort);
+                portDataInManager.subscribe(lightBulbControllerPort,lightBulb,"LightBulb");
+                System.out.println(socket);
+                FaultMonitorService.clearFault();
+
+            }
+            catch(IOException e)
+            {
+                FaultMonitorService.reportFault("socket");
+            }
+
+
+            Sensor sensor = new Sensor(lightBulbControllerPort);
+            portDataOutManager.bindOutPutComponentToPortDataOut(lightBulbControllerPort,sensor);
+            Thread sensorThread = new Thread(sensor);
+            sensorThread.start();
+            System.out.println("Main: Starting AsyncConcreteSystemComponents.Sensor");
+
+
+            HeartBeatSender heartBeatSender = new HeartBeatSender(lightBulbControllerPort);
+            portDataOutManager.bindOutPutComponentToPortDataOut(lightBulbControllerPort, heartBeatSender);
+            Thread heartBeatThread = new Thread(heartBeatSender);
+            System.out.println("Main: Starting Heartbeat Thread");
+            heartBeatThread.start();
+
+            handleCommandInput(socket, heartBeatSender, sensor);
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
 
         /*
 

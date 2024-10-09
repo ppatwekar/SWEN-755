@@ -5,7 +5,7 @@ import PortInAndOut.SinglePortDataOut;
 
 public class SensorReceiverLightbulbSender extends AbstractAsyncBidirectionalComponent {
 
-    private int currentGreaterThan50Count;
+    private int currentGreaterThan50Count = 0;
     private static final int NUM_COUNTS_TO_SWITCH_ON_LIGHT = 3;
 
     public SensorReceiverLightbulbSender(SinglePortDataOut singlePortDataOut){
@@ -18,10 +18,10 @@ public class SensorReceiverLightbulbSender extends AbstractAsyncBidirectionalCom
         double probability = Double.parseDouble(s.substring(7));
         if(probability > 0.5)
         {
-            currentGreaterThan50Count = currentGreaterThan50Count + 1 == 10 ? 10 : (currentGreaterThan50Count + 1);
+            currentGreaterThan50Count = currentGreaterThan50Count + 1 >= 4 ?  4 : (currentGreaterThan50Count + 1);
         }
         else{
-            currentGreaterThan50Count = (currentGreaterThan50Count - 1 == 0 ? 0 : currentGreaterThan50Count - 1);
+            currentGreaterThan50Count = (currentGreaterThan50Count - 1 <= 0 ? 0 : currentGreaterThan50Count - 1);
         }
 
         System.out.println("SensorReceiverLightbulbSender: currentCount="+currentGreaterThan50Count);

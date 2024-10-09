@@ -20,11 +20,14 @@ public class SinglePortDataIn extends AbstractPortData implements Runnable{
         this.portDataInController = portDataInController;
     }
 
+
     @Override
     public void run() {
         while(true){
             try {
-                if(SocketManager.isReadyToUse(port)){
+                //System.out.println("Running!!!!!!!!!!!!!");
+                if(SocketManager.isReadyToUse(port))
+                {
                     String dataIn = SocketManager.getBufferedReader(port).readLine();
                     if (dataIn != null) {
                         System.out.println("SinglePortDataIn: Received " + dataIn);
@@ -33,8 +36,9 @@ public class SinglePortDataIn extends AbstractPortData implements Runnable{
                 }
             } catch (IOException e)
             {
-                SocketManager.unableToConnectToPort(port);
                 FaultMonitorService.reportFault("socket");
+                break;
+                //SocketManager.unableToConnectToPort(port);
             }
         }
     }
