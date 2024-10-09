@@ -108,7 +108,6 @@ public class Main {
             while(!FaultMonitorService.faultDetected())
             {
                 //do nothing
-                System.out.println("Main: Waiting for fault");
             }
             try
             {
