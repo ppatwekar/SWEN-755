@@ -71,7 +71,7 @@ public class Main {
 
             System.out.println("Connected to the LightBulb Controller!");
 
-            LightBulb lightBulb = new LightBulb();
+            LightBulb lightBulb = new LightBulb(isActive);
             portDataInManager.subscribe(lightBulbControllerPort,lightBulb,"LightBulb");
             Thread lightBulbThread = new Thread(lightBulb);
             lightBulbThread.start();
@@ -101,7 +101,7 @@ public class Main {
         else //inactive
         {
 
-            LightBulb lightBulb = new LightBulb();
+            LightBulb lightBulb = new LightBulb(isActive);
             Thread lightBulbThread = new Thread(lightBulb);
             portDataInManager.subscribe(passivePort,lightBulb,"LightBulb");
             lightBulbThread.start();

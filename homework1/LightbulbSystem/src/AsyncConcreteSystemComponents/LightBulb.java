@@ -7,23 +7,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Objects;
 
 public class LightBulb extends AbstractAsyncInputOnlyComponent
 {
     private LightGUI lightGUI;
 
-    public LightBulb() throws IOException
+    public LightBulb(boolean isActive) throws IOException
     {
-        lightGUI = new LightGUI();
+        lightGUI = new LightGUI(isActive); // Pass the boolean variable to the LightGUI constructor
     }
 
     @Override
     protected void processInput(String s)
     {
-        System.out.println("PROCESS INPUT: "+s);
+        System.out.println("PROCESS INPUT: " + s);
         lightGUI.toggleLight(!s.contains("OFF"));
     }
 
@@ -36,17 +34,17 @@ public class LightBulb extends AbstractAsyncInputOnlyComponent
         private BufferedImage imageOn;
         private BufferedImage imageOff;
 
-        public LightGUI() throws IOException {
-            setTitle("Light Bulb");
+        public LightGUI(boolean isActive) throws IOException {
+            setTitle(isActive ? "LightBulb Active" : "LightBulb Inactive"); // Set title based on boolean value
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setLayout(new FlowLayout());
 
-            //office image light on
+            // Office image light on
             imageOn = ImageIO.read(Objects.requireNonNull(this.getClass().getResource("office_simple.JPG")));
             System.out.println(imageOn.toString());
             iconOn = new ImageIcon(imageOn);
 
-            //office image light off
+            // Office image light off
             imageOff = ImageIO.read(Objects.requireNonNull(this.getClass().getResource("office_simple_off.JPG")));
             iconOff = new ImageIcon(imageOff);
             lightBulb = new JLabel(iconOff);
@@ -57,17 +55,13 @@ public class LightBulb extends AbstractAsyncInputOnlyComponent
         }
 
         public void toggleLight(boolean lightOn) {
-            if (lightOn)
-            {
-                //turn light on
+            if (lightOn) {
+                // Turn light on
                 lightBulb.setIcon(iconOn);
-            }
-            else
-            {
-                //turn light off
+            } else {
+                // Turn light off
                 lightBulb.setIcon(iconOff);
             }
         }
-
     }
 }
