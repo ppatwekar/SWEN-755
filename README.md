@@ -35,6 +35,13 @@ Step 7. Observe the inactive lightbulb begin sending heartbeats and sensor data
 Additional commands below simulate movement/lack of movement in the office.
 
 
+Video:
+https://drive.google.com/file/d/1iX4f6FXmT_sOcX7swEJ75k_C98gnoDPt/view?usp=sharing 
+
+
+PowerPoint:
+https://docs.google.com/presentation/d/1ep7d2-K9YBoPPLUVgsquyWKy4d0YOT5y/edit?usp=sharing&ouid=117225874732453380657&rtpof=true&sd=true
+
 
 
 Non-deterministic Failures and User Inputs
