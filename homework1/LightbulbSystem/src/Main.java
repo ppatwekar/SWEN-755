@@ -105,9 +105,11 @@ public class Main {
             Thread lightBulbThread = new Thread(lightBulb);
             portDataInManager.subscribe(passivePort,lightBulb,"LightBulb");
             lightBulbThread.start();
+            System.out.print("Waiting for fault detection");
             while(!FaultMonitorService.faultDetected())
             {
-                System.out.println("Waiting for fault detection");
+
+                System.out.print("");
             }
             try
             {
