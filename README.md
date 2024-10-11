@@ -42,6 +42,8 @@ https://drive.google.com/file/d/1iX4f6FXmT_sOcX7swEJ75k_C98gnoDPt/view?usp=shari
 PowerPoint:
 https://docs.google.com/presentation/d/1ep7d2-K9YBoPPLUVgsquyWKy4d0YOT5y/edit?usp=sharing&ouid=117225874732453380657&rtpof=true&sd=true
 
+Design/Class Diagrams:
+https://github.com/ppatwekar/SWEN-755/tree/hw2foundation/homework1/documentation 
 
 
 Non-deterministic Failures and User Inputs
