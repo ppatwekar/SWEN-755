@@ -1,63 +1,39 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.EmptyStackException;
-import java.util.Stack;
+import java.util.*;
 
-public class ThreadPoolManager extends Thread
+public class ThreadPoolManager
 {
-    Stack<ProcessFileThread> threadInUseStack = new Stack<>();
-    Stack<ProcessFileThread> threadAvailableStack = new Stack<>();
-
+    Deque<ProcessFileThread> threadAvailableStack = new ArrayDeque<>();
+    int threadCount = 0;
    public ThreadPoolManager(int threadCount)
    {
+       this.threadCount = threadCount;
        for (int i = 0; i < threadCount; i++)
        {
-           ProcessFileThread aThread = new ProcessFileThread();
-           aThread.setName("ProcessFileThread " + i);
-           System.out.println("Check if is running before:" + aThread.isAlive());
+           ProcessFileThread aThread = new ProcessFileThread(this);
+           aThread.setName("Thread " + (i + 1));
            threadAvailableStack.push(aThread);
-           System.out.println(aThread.getName());
+           System.out.println("Creating: " + aThread.getName());
        }
    }
-
-    public void run()
-    {
-        while (true)
-        {
-            try
-            {
-                ProcessFileThread peekThread = threadInUseStack.peek();
-                if (!peekThread.isRunning())
-                {
-                    threadAvailableStack.push(threadInUseStack.pop());
-                }
-            }
-            catch(EmptyStackException e)
-            {
-                if((threadAvailableStack.isEmpty()))
-                {
-                    System.out.println("Waiting for resources.");
-                }
-            }
-            
-        }
-    }
     public ProcessFileThread getAvailableThread() throws EmptyStackException
     {
-        ProcessFileThread tempThread;
+        ProcessFileThread popThread = null;
         try
         {
-            tempThread = threadAvailableStack.pop();
-            threadInUseStack.push(tempThread);
-            System.out.println("Getting available thread: " + tempThread.getName() + " " + threadAvailableStack.size());
+            popThread = threadAvailableStack.pop();
         }
-        catch(EmptyStackException e)
+        catch(NoSuchElementException e)
         {
-            return null;
+            //System.out.println("All " + threadCount + " threads are in use");
         }
-        return tempThread;
+        return popThread;
+    }
+    public void pushBackToStack(ProcessFileThread threadCompleted)
+    {
+        threadAvailableStack.push(threadCompleted);
+    }
+    public boolean allThreadsFree()
+    {
+        return threadAvailableStack.size() == threadCount;
     }
 }

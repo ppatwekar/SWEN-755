@@ -3,13 +3,14 @@ import java.awt.desktop.OpenFilesEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 import java.util.stream.Stream;
 
 public class Main {
-    public static void main(String[] args) throws IOException
-    {
-        List<Path> filePaths = new ArrayList<>();
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Stack<Path> filePaths = new Stack<>();
         
         int threadCount = 10;
         while(true)
@@ -30,18 +31,12 @@ public class Main {
         }
         System.out.println("Number of Threads: " + threadCount);
         ThreadPoolManager threadPoolManager = new ThreadPoolManager(threadCount);
-        threadPoolManager.setName("ThreadPoolManager");
-        threadPoolManager.start();
-        System.out.println(threadPoolManager.getName());
-
-        String filesPath = "src\\files";
-        Stream<Path> paths = Files.walk(Path.of(filesPath));
+        String filePathLocation = "src\\files";
+        Stream<Path> paths = Files.walk(Path.of(filePathLocation));
         paths.filter(Files::isRegularFile).forEach(filePaths::add);
         System.out.println("Number of Documents to Process: " + filePaths.size());
-
-        int filesParsed = 0;
-        System.out.println("Total files:" + filePaths.size());
-        while(filesParsed < filePaths.size())
+        Instant start = Instant.now();
+        while(!filePaths.isEmpty())
         {
             ProcessFileThread thread = threadPoolManager.getAvailableThread();
             if (thread != null)
@@ -50,11 +45,19 @@ public class Main {
                 {
                     thread.start();
                 }
-                Path tempPath = filePaths.get(filesParsed);
+                Path tempPath = filePaths.pop();
                 thread.setPath(tempPath);
-                filesParsed = filesParsed + 1;
-                System.out.println("Files parsed: " + filesParsed);
             }
         }
+
+        while(!threadPoolManager.allThreadsFree())
+        {
+            //waiting for all threads to finish
+        }
+        Instant end = Instant.now();
+        Duration timeElapsed = Duration.between(start, end);
+
+        System.out.println("Elapsed time: " + timeElapsed.toMillis() + " ms");
+        System.exit(0);
     }
 }

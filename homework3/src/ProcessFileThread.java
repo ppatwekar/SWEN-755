@@ -6,15 +6,21 @@ import java.nio.file.Path;
 
 public class ProcessFileThread extends Thread
 {
-    static Path path = null;
+    Path path = null;
+
+    ThreadPoolManager threadPoolManager = null;
+
+    public ProcessFileThread(ThreadPoolManager threadPoolManager)
+    {
+        this.threadPoolManager = threadPoolManager;
+    }
 
     public void run() {
         while (true)
         {
             if (path != null)
             {
-
-                System.out.println(path);
+                //System.out.println(path);
                 try {
                     Open(path);
                 } catch (FileNotFoundException e) {
@@ -29,15 +35,11 @@ public class ProcessFileThread extends Thread
     {
         path = inPath;
     }
-    public boolean isRunning()
-    {
-        return (path != null);
-    }
 
     public void Open(Path path) throws IOException {
 
         String filepath = path.toAbsolutePath().toString();
-        System.out.println(path.toAbsolutePath());
+        //System.out.println(path.toAbsolutePath());
         BufferedReader br = new BufferedReader(new FileReader(filepath));
         String line = br.readLine();
         int wordCount = 0;
@@ -49,8 +51,10 @@ public class ProcessFileThread extends Thread
             line = br.readLine();
 
         }
-        System.out.println("Word Count: " + wordCount);
+        System.out.println(this.getName() + "\nWord Count: " + wordCount + "\nFor Path:" + path.toAbsolutePath().toString());
+
         br.close();
         setPath(null);
+        threadPoolManager.pushBackToStack(this);
     }
 }
