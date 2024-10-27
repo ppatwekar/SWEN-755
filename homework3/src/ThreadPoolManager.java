@@ -19,9 +19,8 @@ public class ThreadPoolManager extends Thread
            ProcessFileThread aThread = new ProcessFileThread();
            aThread.setName("ProcessFileThread " + i);
            aThread.start();
-           System.out.println("Check if is running before:" + aThread.isRunning());
+           System.out.println("Check if is running before:" + aThread.isAlive());
            threadAvailableStack.push(aThread);
-
            System.out.println(aThread.getName());
        }
    }
@@ -37,7 +36,6 @@ public class ThreadPoolManager extends Thread
                 {
                     threadAvailableStack.push(threadInUseStack.pop());
                 }
-
             }
             catch(EmptyStackException e)
             {
@@ -52,9 +50,16 @@ public class ThreadPoolManager extends Thread
     public ProcessFileThread getAvailableThread() throws EmptyStackException
     {
         ProcessFileThread tempThread;
-        tempThread = threadAvailableStack.pop();
-        System.out.println("Getting available thread: " + tempThread.getName() + " " + threadAvailableStack.size());
-        threadInUseStack.push(tempThread);
+        try
+        {
+            tempThread = threadAvailableStack.pop();
+            threadInUseStack.push(tempThread);
+            System.out.println("Getting available thread: " + tempThread.getName() + " " + threadAvailableStack.size());
+        }
+        catch(EmptyStackException e)
+        {
+            return null;
+        }
         return tempThread;
     }
 }

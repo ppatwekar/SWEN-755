@@ -35,28 +35,20 @@ public class Main {
 
         String filesPath = "src\\files";
         Stream<Path> paths = Files.walk(Path.of(filesPath));
-        paths.filter(Files::isRegularFile).forEach(path ->
-        {
-            filePaths.add(path);
-        });
+        paths.filter(Files::isRegularFile).forEach(filePaths::add);
         System.out.println("Number of Documents to Process: " + filePaths.size());
 
         int filesParsed = 0;
         System.out.println("Total files:" + filePaths.size());
         while(filesParsed < filePaths.size())
         {
-            try
+            ProcessFileThread thread = threadPoolManager.getAvailableThread();
+            if (thread != null)
             {
-                ProcessFileThread thread = threadPoolManager.getAvailableThread();
                 Path tempPath = filePaths.get(filesParsed);
                 thread.setPath(tempPath);
-                filesParsed = filesParsed+1;
+                filesParsed = filesParsed + 1;
                 System.out.println("Files parsed: " + filesParsed);
-            }
-            catch (EmptyStackException e)
-            {
-                //System.out.println(Integer.toString(threadsInUse) + " Threads are actively in use");
-                //System.out.println("Waiting for a thread to free up");
             }
         }
     }

@@ -25,16 +25,16 @@ public class ProcessFileThread extends Thread
             }
         }
     }
-    public static void setPath(Path inPath)
+    public void setPath(Path inPath)
     {
         path = inPath;
     }
-    public static boolean isRunning()
+    public boolean isRunning()
     {
         return (path != null);
     }
 
-    public static void Open(Path path) throws IOException {
+    public void Open(Path path) throws IOException {
 
         String filepath = path.toAbsolutePath().toString();
         System.out.println(path.toAbsolutePath());
