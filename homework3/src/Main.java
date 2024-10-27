@@ -11,14 +11,15 @@ public class Main {
     {
         List<Path> filePaths = new ArrayList<>();
         
-        int threadCount = 1;
+        int threadCount = 10;
         while(true)
         {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Provide Number of Threads to run:");
             String input = scanner.nextLine();
             System.out.println(input);
-            if(Integer.parseInt(input) > threadCount) {
+            if(Integer.parseInt(input) > threadCount)
+            {
                 System.out.println("Number of Threads exceeded");
             }
             else
@@ -45,6 +46,10 @@ public class Main {
             ProcessFileThread thread = threadPoolManager.getAvailableThread();
             if (thread != null)
             {
+                if(!thread.isAlive())
+                {
+                    thread.start();
+                }
                 Path tempPath = filePaths.get(filesParsed);
                 thread.setPath(tempPath);
                 filesParsed = filesParsed + 1;

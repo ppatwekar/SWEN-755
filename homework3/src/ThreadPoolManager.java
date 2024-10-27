@@ -13,12 +13,10 @@ public class ThreadPoolManager extends Thread
 
    public ThreadPoolManager(int threadCount)
    {
-       threadCount = 1;
        for (int i = 0; i < threadCount; i++)
        {
            ProcessFileThread aThread = new ProcessFileThread();
            aThread.setName("ProcessFileThread " + i);
-           aThread.start();
            System.out.println("Check if is running before:" + aThread.isAlive());
            threadAvailableStack.push(aThread);
            System.out.println(aThread.getName());
