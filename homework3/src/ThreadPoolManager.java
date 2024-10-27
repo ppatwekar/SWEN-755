@@ -34,6 +34,8 @@ public class ThreadPoolManager
     }
     public boolean allThreadsFree()
     {
+        //System.out.println("Threads available: " + threadAvailableStack.size());
+        //System.out.println("threadCount: " + threadCount);
         return threadAvailableStack.size() == threadCount;
     }
 }

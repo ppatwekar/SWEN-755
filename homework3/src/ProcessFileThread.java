@@ -15,16 +15,13 @@ public class ProcessFileThread extends Thread
         this.threadPoolManager = threadPoolManager;
     }
 
-    public void run() {
+    public void run() throws RuntimeException
+    {
         while (true)
         {
-            if (path != null)
-            {
-                //System.out.println(path);
+            if (path != null) {
                 try {
                     Open(path);
-                } catch (FileNotFoundException e) {
-                    System.out.println(e.getMessage());
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -51,9 +48,9 @@ public class ProcessFileThread extends Thread
             line = br.readLine();
 
         }
-        System.out.println(this.getName() + "\nWord Count: " + wordCount + "\nFor Path:" + path.toAbsolutePath().toString());
-
         br.close();
+
+        System.out.println(this.getName() + "\nWord Count: " + wordCount + "\nFor Path:" + path.toAbsolutePath().toString());
         setPath(null);
         threadPoolManager.pushBackToStack(this);
     }
