@@ -8,11 +8,12 @@ import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.stream.Stream;
 
 public class Main
 {
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
         Stack<Path> filePaths = new Stack<>();
         List<Future<?>> futures = new ArrayList<>();
 
@@ -30,7 +31,6 @@ public class Main
             }
         }
         System.out.println("Number of Threads: " + threadCount);
-        //ThreadPoolManager threadPoolManager = new ThreadPoolManager(threadCount);
         ThreadPoolManager2 threadPoolManager2 = new ThreadPoolManager2(threadCount);
         String filePathLocation = "src\\files";
         Stream<Path> paths = Files.walk(Path.of(filePathLocation));
@@ -38,12 +38,42 @@ public class Main
         System.out.println("Number of Documents to Process: " + filePaths.size());
         Instant start = Instant.now();
 
+        Path currentPath = null;
+        ProcessFileThread2 thread = null;
+        int i = 1;
+        int currentCount = 0;
         while (!filePaths.isEmpty())
         {
-            ProcessFileThread2 thread = new ProcessFileThread2();
-            thread.setName("Process File Thread:" + Instant.now());
-            thread.setPath(filePaths.pop());
-            futures.add(threadPoolManager2.ExecuteTask(thread));
+            try
+            {
+                thread = new ProcessFileThread2();
+                if(i > threadCount)
+                {
+                    i = 1;
+                }
+                thread.setName("ProcessFile Thread:" + i);
+                i = i + 1;
+                currentPath = filePaths.pop();
+                thread.setPath(currentPath);
+                Future<?> newFuture = threadPoolManager2.ExecuteTask(thread);
+                futures.add(newFuture);
+
+            }
+            catch(EmptyStackException e)
+            {
+                System.out.println("Empty StackException");
+                System.exit(1);
+            }
+            catch(RejectedExecutionException r)
+            {
+                System.out.println("RejectedExecutionException");
+                System.exit(1);
+            }
+            if(currentCount != threadPoolManager2.getActiveCount())
+            {
+                System.out.println("The current active thread count is: " + threadPoolManager2.getActiveCount());
+                currentCount = threadPoolManager2.getActiveCount();
+            }
         }
 
         boolean complete = false;
@@ -52,11 +82,17 @@ public class Main
             complete = true;
             for (Future<?> future : futures)
             {
+                //System.out.println("Future is currently: " + future.state().toString());
                 if (!future.isDone())
                 {
                     complete = false;
                     break;
                 }
+            }
+            if(currentCount != threadPoolManager2.getActiveCount())
+            {
+                System.out.println("The current active thread count is: " + threadPoolManager2.getActiveCount());
+                currentCount = threadPoolManager2.getActiveCount();
             }
         }
         System.out.println("All threads free");
