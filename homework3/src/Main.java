@@ -29,7 +29,7 @@ public class Main
         }
         System.out.println("Number of Threads: " + threadCount);
         ThreadPoolManager2 threadPoolManager2 = new ThreadPoolManager2(threadCount);
-        String filePathLocation = "src\\files";
+        String filePathLocation = "./src/files";
         Stream<Path> paths = Files.walk(Path.of(filePathLocation));
         paths.filter(Files::isRegularFile).forEach(filePaths::add);
         System.out.println("Number of Documents to Process: " + filePaths.size());
