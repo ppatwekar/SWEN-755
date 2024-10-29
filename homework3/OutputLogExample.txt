@@ -1,0 +1,171 @@
+C:\Users\sskal\.jdks\openjdk-23-1\bin\java.exe --enable-preview "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2024.1.2\lib\idea_rt.jar=64537:C:\Program Files\JetBrains\IntelliJ IDEA 2024.1.2\bin" -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\out\production\HW3 Main
+Provide Number of Threads to run:
+10
+10
+Number of Threads: 10
+Number of Documents to Process: 40
+The current active thread count is: 1
+The current active thread count is: 2
+The current active thread count is: 3
+The current active thread count is: 4
+The current active thread count is: 5
+The current active thread count is: 6
+The current active thread count is: 7
+The current active thread count is: 8
+The current active thread count is: 9
+The current active thread count is: 10
+The current active thread count is: 10
+ProcessFile Thread:6
+Word Count: 454986
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_4.txt
+ProcessFile Thread:4
+Word Count: 456156
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_6.txt
+The current active thread count is: 10
+ProcessFile Thread:2
+Word Count: 456416
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_8.txt
+The current active thread count is: 9
+ProcessFile Thread:1
+Word Count: 456161
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_9.txt
+ProcessFile Thread:3
+Word Count: 456591
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_7.txt
+ProcessFile Thread:9
+Word Count: 456090
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_2.txt
+The current active thread count is: 10
+ProcessFile Thread:8
+Word Count: 454883
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_20.txt
+The current active thread count is: 9
+ProcessFile Thread:10
+Word Count: 455287
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_19.txt
+The current active thread count is: 9
+ProcessFile Thread:7
+Word Count: 455116
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_3.txt
+The current active thread count is: 9
+ProcessFile Thread:5
+Word Count: 455828
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_5.txt
+The current active thread count is: 9
+ProcessFile Thread:2
+Word Count: 454583
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_17.txt
+The current active thread count is: 9
+ProcessFile Thread:6
+Word Count: 456853
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_13.txt
+ProcessFile Thread:9
+Word Count: 455898
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_10.txt
+The current active thread count is: 9
+ProcessFile Thread:5
+Word Count: 455722
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_14.txt
+ProcessFile Thread:7
+Word Count: 456573
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_12.txt
+ProcessFile Thread:1
+Word Count: 454877
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_18.txt
+ProcessFile Thread:8
+Word Count: 455565
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_11.txt
+ProcessFile Thread:3
+Word Count: 455500
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_16.txt
+ProcessFile Thread:10
+Word Count: 455680
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_1.txt
+ProcessFile Thread:4
+Word Count: 455692
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\large_text_file_15.txt
+The current active thread count is: 9
+ProcessFile Thread:1
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_9.txt
+The current active thread count is: 9
+The current active thread count is: 10
+ProcessFile Thread:7
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_3.txt
+The current active thread count is: 9
+The current active thread count is: 10
+ProcessFile Thread:4
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_6.txt
+ProcessFile Thread:2
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_8.txt
+The current active thread count is: 9
+ProcessFile Thread:3
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_7.txt
+The current active thread count is: 9
+ProcessFile Thread:5
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_5.txt
+ProcessFile Thread:6
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_4.txt
+The current active thread count is: 9
+The current active thread count is: 10
+ProcessFile Thread:8
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_20.txt
+ProcessFile Thread:9
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_2.txt
+The current active thread count is: 9
+The current active thread count is: 10
+ProcessFile Thread:10
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_19.txt
+The current active thread count is: 9
+ProcessFile Thread:3
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_16.txt
+The current active thread count is: 9
+ProcessFile Thread:4
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_15.txt
+The current active thread count is: 8
+ProcessFile Thread:5
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_14.txt
+The current active thread count is: 7
+ProcessFile Thread:6
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_13.txt
+The current active thread count is: 6
+ProcessFile Thread:1
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_18.txt
+ProcessFile Thread:2
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_17.txt
+The current active thread count is: 4
+ProcessFile Thread:9
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_10.txt
+The current active thread count is: 3
+ProcessFile Thread:7
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_12.txt
+The current active thread count is: 2
+ProcessFile Thread:8
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_11.txt
+The current active thread count is: 1
+ProcessFile Thread:10
+Word Count: 701696
+For Path:C:\Users\sskal\OneDrive\Documents\GitHub\SWEN-755\homework3\.\src\files\fake_thesis_1.txt
+The current active thread count is: 0
+All threads free
+Elapsed time: 4962 ms
+
+Process finished with exit code 0
