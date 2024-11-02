@@ -1,3 +1,16 @@
+How to Run This Program
+1. Unzip the package
+2. Open Homework3 in a IDE
+3. Go to the ./src/ folder in your IDE
+4. Run Main.java
+5. You will be prompted for number of threads to add, you can select between 1 and 10
+Example:
+Provide Number of Threads to run: 1
+
+Example:
+Provide Number of Threads to run: 10
+
+
 What is the purpose of the project?
 Often times, conferences have word limits on the amount of words a document can have. This project deals with counting words from multiple files and outputing their word count. 
 The implementation is multi-threaded and offers a performance boost compared to a single threaded application. Performance in this case can be important because reviewers may want to reject certain papers that do not meet the word count specified. For this case, using multiple threads to process multiple files at once can let reviewers go through a large set of files faster than a single threaded application would allow. This would help reviewers send feedback within the right amount of time.
