@@ -34,4 +34,8 @@ Apple M1
 It should be noted that along with the hardware, these metrics can vary based on the number of threads and processes currently running on the operating system. 
 
 
+Additional Documentation:
+https://docs.google.com/presentation/d/1ygxcQSi6MrBnVlnQonpytYNUMZgB92Syz1KzbU9zYOY/edit?usp=sharing
 
+homework3:
+ThreadPoolClassDiagram.png
