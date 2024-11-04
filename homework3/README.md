@@ -39,3 +39,7 @@ https://docs.google.com/presentation/d/1ygxcQSi6MrBnVlnQonpytYNUMZgB92Syz1KzbU9z
 
 homework3:
 ThreadPoolClassDiagram.png
+
+
+References:
+OpenAI. (2024). ChatGPT (October 2024 Version) [Large language model]. OpenAI. Available at https://openai.com used to generate the random large sized text files
