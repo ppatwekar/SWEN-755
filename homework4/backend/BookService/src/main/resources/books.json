@@ -1,0 +1,26 @@
+[
+  {
+    "name": "ABC Book",
+    "price": 55
+  },
+  {
+    "name": "Some Book",
+    "price": 78
+  },
+  {
+    "name": "DEF Book",
+    "price": 200
+  },
+  {
+    "name": "GHI Book",
+    "price": 45
+  },
+  {
+    "name": "JKL Book",
+    "price": 12
+  },
+  {
+    "name": "MNO Book",
+    "price": 8000
+  }
+]

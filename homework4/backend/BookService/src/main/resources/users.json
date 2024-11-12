@@ -1,0 +1,14 @@
+[
+  {
+    "userId": "123er56tyu",
+    "username": "gandalf",
+    "password": "drumsinthedeep",
+    "userRoles": ["Admin"]
+  },
+  {
+    "userId": "98uhyt5r43",
+    "username": "gollum",
+    "password": "myprecious",
+    "userRoles": ["Customer"]
+  }
+]
