@@ -23,11 +23,17 @@ public class User {
     @Setter
     private Set<UserRole> userRoles;
 
-    public User(String userId, String username, String password, Set<UserRole> userRoles) {
+    @Getter
+    @Setter
+    private String hash;
+
+
+    public User(String userId, String username, String password, Set<UserRole> userRoles, String hash) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.userRoles = userRoles;
+        this.hash = hash;
     }
 
 
@@ -41,7 +47,8 @@ public class User {
                 "userId='" + userId + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", userRoles=" + userRoles +
+                ", userRoles=" + userRoles+ '\'' +
+                ", hash=" + hash +
                 '}';
     }
 

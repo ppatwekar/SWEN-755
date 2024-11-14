@@ -11,6 +11,10 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,12 +37,105 @@ public class UserDAO {
         this.initUserMap();
     }
 
-    public boolean authenticate(String username, String password){
+    public boolean authenticate(String username, String password)
+    {
+        for (User user : userMap.values())
+        {
+            {
+                if (user.getPassword().equals(password))
+                {
+                    if (user.getUsername().equals(username))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
-    public User getUser(String userId){
+    public String getUserId(String username, String password)
+    {
+        for (User user : userMap.values())
+        {
+            {
+                if (user.getPassword().equals(password))
+                {
+                    if (user.getUsername().equals(username))
+                    {
+                        return user.getUserId();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public boolean isAuthorizedToViewAdminContent(String userId)
+    {
+        if(userMap.containsKey(userId))
+        {
+            for(UserRole role  : userMap.get(userId).getUserRoles())
+            {
+                if(role.equals(UserRole.ADMIN))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public boolean isAuthorizedToViewCustomerContent(String userId)
+    {
+        if (userMap.containsKey(userId)) {
+            for (UserRole role : userMap.get(userId).getUserRoles())
+            {
+                if (role.equals(UserRole.CUSTOMER)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public User getUser(String userId)
+    {
         return userMap.get(userId);
+    }
+
+    public static final String secureHashCreation(String userInput, String passwordInput) throws NoSuchAlgorithmException {
+        String combineddCredential = userInput + passwordInput;
+        System.out.println(combineddCredential);
+
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+        byte[] byteArray = md.digest(combineddCredential.getBytes(StandardCharsets.UTF_8));
+
+        // Convert byte array into signum representation
+        BigInteger number = new BigInteger(1, byteArray);
+
+        // Convert message digest into hex value
+        StringBuilder hexString = new StringBuilder(number.toString(16));
+
+        // Pad with leading zeros
+        while (hexString.length() < 64) {
+            hexString.insert(0, '0');
+        }
+        System.out.println(hexString.toString());
+
+        return hexString.toString();
+
+
+    }
+    public boolean secureHashValidation(String hexString)
+    {
+        for (User user : userMap.values())
+        {
+            if (user.getHash().equals(hexString))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public User updateUser(User user){
