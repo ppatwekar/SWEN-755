@@ -102,30 +102,6 @@ public class UserDAO {
         return userMap.get(userId);
     }
 
-    public static final String secureHashCreation(String userInput, String passwordInput) throws NoSuchAlgorithmException {
-        String combineddCredential = userInput + passwordInput;
-        System.out.println(combineddCredential);
-
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-
-        byte[] byteArray = md.digest(combineddCredential.getBytes(StandardCharsets.UTF_8));
-
-        // Convert byte array into signum representation
-        BigInteger number = new BigInteger(1, byteArray);
-
-        // Convert message digest into hex value
-        StringBuilder hexString = new StringBuilder(number.toString(16));
-
-        // Pad with leading zeros
-        while (hexString.length() < 64) {
-            hexString.insert(0, '0');
-        }
-        System.out.println(hexString.toString());
-
-        return hexString.toString();
-
-
-    }
     public boolean secureHashValidation(String hexString)
     {
         for (User user : userMap.values())

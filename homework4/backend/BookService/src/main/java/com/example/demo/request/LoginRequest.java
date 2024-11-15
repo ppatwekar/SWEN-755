@@ -2,9 +2,7 @@ package com.example.demo.request;
 
 import lombok.Getter;
 import lombok.Setter;
-import com.example.demo.dao.UserDAO;
 
-import java.security.NoSuchAlgorithmException;
 
 public class LoginRequest {
     @Getter
@@ -15,13 +13,9 @@ public class LoginRequest {
     @Setter
     private String password;
 
-    @Getter
-    @Setter
-    private String secureHash;
 
-    public LoginRequest(String username, String password) throws NoSuchAlgorithmException
+    public LoginRequest(String username, String password)
     {
-        this.secureHash = UserDAO.secureHashCreation(username, password);
         this.username = username;
         this.password = password;
     }
