@@ -13,18 +13,24 @@ import java.util.UUID;
 @Service
 public class SessionService {
 
+
     private Map<String,String> sessionIdUserIdMap;
 
     public SessionService() {
         sessionIdUserIdMap = new HashMap<>();
     }
 
-    public String createSession(String userId){
-        return "";
-    }
 
-    public String getUserId(String sessionId){
-        return "";
+
+    public String createSession(String userId)
+    {
+        String sessionId = UUID.randomUUID().toString().replaceAll("-", "");
+        sessionIdUserIdMap.put(sessionId, userId);
+        return sessionId;
+    }
+    public String getUserId(String session)
+    {
+        return sessionIdUserIdMap.get(session);
     }
 
     public static final String secureHashCreation(String userInput, String passwordInput) throws NoSuchAlgorithmException {
