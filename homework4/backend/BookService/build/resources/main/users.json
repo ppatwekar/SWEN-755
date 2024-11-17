@@ -1,14 +1,16 @@
 [
   {
-    "userId": "123er56tyu",
-    "username": "gandalf",
-    "password": "drumsinthedeep",
-    "userRoles": ["Admin"]
+    "userId": "10001",
+    "username": "admin_user",
+    "password": "secureAdminPass123",
+    "userRoles": ["Admin"],
+    "hash": "e785fe8d661fe7348c71488c0f2eac352d818f5ebaf3c39be82097c3bf2fa30a"
   },
   {
-    "userId": "98uhyt5r43",
-    "username": "gollum",
-    "password": "myprecious",
-    "userRoles": ["Customer"]
+    "userId": "10002",
+    "username": "customer_user",
+    "password": "customerPass456",
+    "userRoles": ["Customer"],
+    "hash": "ebe677f3f914c59104fd640ad0661740f42a7cca84bc0aa49fe47b449bd00b11"
   }
 ]
