@@ -5,6 +5,7 @@ import com.example.demo.service.SessionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,8 +21,8 @@ public class BookPageController {
         this.userDAO = userDAO;
     }
 
-    @GetMapping("/{sessionId}")
-    public String getBooksPage(@RequestParam String sessionId, Model model){
+    @GetMapping("/")
+    public String getBooksPage(@PathVariable String sessionId, Model model){
 
         String userId = this.sessionService.getUserId(sessionId);
         if(userId != null){

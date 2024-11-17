@@ -39,7 +39,7 @@ public class BookController {
     This method will later become
     getBooks(@RequestParam(required = true) String sessionId)
      */
-    @GetMapping("/{sessionId}")
+    @GetMapping("/")
     public ResponseEntity<List<Book>> getBooks(@RequestParam String sessionId){
         logger.info("Received request to get all books...");
 
