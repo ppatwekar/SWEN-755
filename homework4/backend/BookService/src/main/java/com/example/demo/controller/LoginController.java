@@ -31,8 +31,9 @@ public class LoginController {
         String hash =  SessionService.secureHashCreation(loginRequest.getUsername(), loginRequest.getPassword());
 
 
+
         if(true){
-            return ResponseEntity.ok(new LoginResponse(""));
+            return ResponseEntity.ok(new LoginResponse(userDAO.getUserId(hash)));
         }
         return null;
     }
