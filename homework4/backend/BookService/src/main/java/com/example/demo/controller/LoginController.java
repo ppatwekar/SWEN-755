@@ -4,6 +4,7 @@ import com.example.demo.dao.UserDAO;
 import com.example.demo.request.LoginRequest;
 import com.example.demo.response.LoginResponse;
 import com.example.demo.service.SessionService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,14 +29,16 @@ public class LoginController {
     @PostMapping("/")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) throws NoSuchAlgorithmException {
 
-        String hash =  SessionService.secureHashCreation(loginRequest.getUsername(), loginRequest.getPassword());
-
-
-
-        if(true){
-            return ResponseEntity.ok(new LoginResponse(userDAO.getUserId(hash)));
+        String hash = SessionService.secureHashCreation(loginRequest.getUsername(), loginRequest.getPassword());
+        if (userDAO.authenticate(hash))
+        {
+            String session = sessionService.createSession(userDAO.getUserId(hash));
+            return ResponseEntity.ok(new LoginResponse(session));
         }
-        return null;
+        else
+        {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
     }
 
 }

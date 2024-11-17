@@ -26,8 +26,9 @@ public class SessionService {
         sessionIdUserIdMap.put(sessionId, userId);
         return sessionId;
     }
-    public String getUserId(String session){
-        return "";
+    public String getUserId(String session)
+    {
+        return sessionIdUserIdMap.get(session);
     }
 
     public static final String secureHashCreation(String userInput, String passwordInput) throws NoSuchAlgorithmException {
