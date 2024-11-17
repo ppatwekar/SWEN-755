@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.NoSuchAlgorithmException;
+
 @RestController
 @RequestMapping("/login")
 public class LoginController {
@@ -24,7 +26,11 @@ public class LoginController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) throws NoSuchAlgorithmException {
+
+        String hash =  SessionService.secureHashCreation(loginRequest.getUsername(), loginRequest.getPassword());
+
+
         if(true){
             return ResponseEntity.ok(new LoginResponse(""));
         }
