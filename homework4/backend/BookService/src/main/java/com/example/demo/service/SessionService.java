@@ -19,11 +19,11 @@ public class SessionService {
         sessionIdUserIdMap = new HashMap<>();
     }
 
-    public boolean createSession(String userId){
-        return false;
+    public String createSession(String userId){
+        return "";
     }
 
-    public String getUserId(String session){
+    public String getUserId(String sessionId){
         return "";
     }
 
