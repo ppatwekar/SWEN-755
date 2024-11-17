@@ -22,7 +22,11 @@ public class BookPageController {
     }
 
     @GetMapping("/")
-    public String getBooksPage(@PathVariable String sessionId, Model model){
+    public String getBooksPage(@RequestParam String sessionId, Model model){
+
+        if(sessionId == null){
+            return "index";
+        }
 
         String userId = this.sessionService.getUserId(sessionId);
         if(userId != null){

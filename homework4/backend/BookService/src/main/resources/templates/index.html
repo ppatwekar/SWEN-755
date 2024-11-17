@@ -24,10 +24,20 @@
                 headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
 
                 body: JSON.stringify(loginRequest)})
-                .then(response => response.text())
-                .then(text => { alert(`Response: ${text}`);
+                .then(response => {
+                    if(!response.ok){
+                        throw new Error('Response not Ok');
+                    }
+
+                    return response.json();
                 })
-                .catch(error => {console.error(error);});
+                .then(data => {
+                const sessionId = data.sessionId;
+                localStorage.setItem('sessionId',sessionId);
+                window.location.href = `http://localhost:8080/books/?sessionId=${sessionId}`
+                })
+                .catch(error => {console.error(error)});
+
 
             }
         </script>
