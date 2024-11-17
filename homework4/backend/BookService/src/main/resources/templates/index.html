@@ -10,7 +10,25 @@
         </style>
 
         <script>
+            function handleFormSubmit(event){
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
 
+                loginRequest = {username: username, password: password};
+
+                console.log(loginRequest);
+
+                fetch("http://localhost:8080/api/session/",
+
+                {method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+
+                body: loginRequest}).then(response=>{
+
+                    alert(`It works {response.text()}`)
+                });
+
+            }
         </script>
 
     </head>
@@ -18,7 +36,7 @@
         <!-- Section for Credentials Submission -->
         <div id="credentials-section">
             <h2>Submit Credentials</h2>
-            <form id="credentials-form">
+            <form id="credentials-form" onsubmit="handleFormSubmit(event)">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
     

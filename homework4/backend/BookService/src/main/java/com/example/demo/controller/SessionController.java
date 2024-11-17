@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.NoSuchAlgorithmException;
 
 @RestController
-@RequestMapping("/session")
+@RequestMapping("/api/session")
 public class SessionController {
 
     private SessionService sessionService;
@@ -28,6 +28,8 @@ public class SessionController {
 
     @PostMapping("/")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginRequest loginRequest) throws NoSuchAlgorithmException {
+
+        System.out.println("Received Session request");
 
         String hash = SessionService.secureHashCreation(loginRequest.getUsername(), loginRequest.getPassword());
         if (userDAO.authenticate(hash))
