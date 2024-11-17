@@ -5,16 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Submit Credentials and Inventory</title>
         <link rel="stylesheet" href="styles.css">
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
             document.getElementById("myButton").onclick = function () {
                 location.href = "http://localhost:3000/inventory.html";
             };
-        </script>
+        </script> -->
     </head>
     <body>
         <!-- Section for Credentials Submission -->
         <div id="credentials-section">
-            <h2>Submit Credentials</h2>
+            <h2>Login</h2>
             <form id="credentials-form" onsubmit="submitCredentials(event)">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -22,7 +22,7 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
     
-                <button type="submit">Submit Credentials</button>
+                <button type="submit">Sign in</button>
             </form>
         </div>
         <script src="script.js"></script>
