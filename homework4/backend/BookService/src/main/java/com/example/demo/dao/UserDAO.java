@@ -44,7 +44,7 @@ public class UserDAO {
             {
                 if (user.getHash().equals(hash))
                 {
-                        return true;
+                    return true;
                 }
             }
         }
