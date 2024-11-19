@@ -4,9 +4,92 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Submit Credentials and Inventory</title>
-
         <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f9;
+                color: #333;
+            }
 
+
+            h1 {
+                text-align: center;
+                margin-top: 50px;
+                font-size: 2.5em;
+                color: #007BFF;
+            }
+
+
+            #credentials-section, #inventory-section {
+                background-color: white;
+                margin: 20px auto;
+                padding: 20px;
+                max-width: 400px;
+                border-radius: 8px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+
+            h2 {
+                text-align: center;
+                color: #555;
+                font-size: 1.5em;
+                margin-bottom: 15px;
+            }
+
+
+            label {
+                display: block;
+                margin: 10px 0 5px;
+                font-weight: bold;
+            }
+
+
+            input[type="text"], input[type="password"] {
+                width: 95%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 1em;
+            }
+
+
+            button {
+                width: 100%;
+                padding: 10px;
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                font-size: 1.2em;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+
+            @media screen and (max-width: 600px) {
+                h1 {
+                    font-size: 2em;
+                }
+
+                #credentials-section, #inventory-section {
+                    margin: 10px;
+                    padding: 15px;
+                    max-width: 90%;
+                }
+
+                button {
+                    font-size: 1em;
+                }
+            }
         </style>
 
         <script>
@@ -49,7 +132,7 @@
     <body>
         <!-- Section for Credentials Submission -->
         <div id="credentials-section">
-            <h2>Submit Credentials</h2>
+            <h2>Login</h2>
             <form id="credentials-form" onsubmit="handleFormSubmit(event)">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -57,7 +140,7 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
     
-                <button type="submit">Submit Credentials</button>
+                <button type="submit">Sign in</button>
             </form>
         </div>
     </body>
