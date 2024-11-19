@@ -17,16 +17,19 @@
             const response = await fetch(url);
             if (!response.ok)
             {
-                throw new Error(`Response status: ${response.status}`);
+                if(response.status == 401)
+                {
+                    alert("Unauthorized Action")
+                }
             }
-            const responseJson = await response.json();
-            const responseStringify = JSON.stringify(responseJson);
-            //alert(responseJson);
-            //https://stackoverflow.com/questions/26320525/prettify-json-data-in-textarea-input#:~:text=%2F%2F%20using%20JSON.stringify%20pretty%20print%20capability%3A%20var%20str,str%3B%20For%20this%20HTML%3A%20%3Ctextarea%20id%3D%22myTextArea%22%20cols%3D50%20rows%3D25%3E%3C%2Ftextarea%3E
-
-            //alert(responseStringify);
-            var pretty = JSON.stringify(responseJson, undefined, 4);
-            document.getElementById('Book Inventory').value = pretty;
+            else
+            {
+                const responseJson = await response.json();
+                const responseStringify = JSON.stringify(responseJson);
+                //alert(responseStringify);
+                var pretty = JSON.stringify(responseJson, undefined, 4);
+                document.getElementById('Book Inventory').value = pretty;
+            }
 
         }
     </script>

@@ -27,16 +27,19 @@
                 .then(response => {
                     if(!response.ok){
                         throw new Error('Response not Ok');
+                        return null;
                     }
-
-                    return response.json();
+                    {
+                        return response.json();
+                    }
                 })
                 .then(data => {
                 const sessionId = data.sessionId;
                 localStorage.setItem('sessionId',sessionId);
                 window.location.href = `http://localhost:8080/books/?sessionId=${sessionId}`
                 })
-                .catch(error => {console.error(error)});
+                .catch(error => {alert("Invalid Login Credentials")});
+                    //console.error(error)});
 
 
             }
