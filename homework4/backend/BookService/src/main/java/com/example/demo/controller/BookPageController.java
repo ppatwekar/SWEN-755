@@ -25,6 +25,12 @@ public class BookPageController {
     public String getBooksPage(@RequestParam String sessionId, Model model){
 
         if(sessionId == null){
+            model.addAttribute("message","Invalid Session Id: Please Sign In Again");
+            return "index";
+        }
+
+        if(!sessionService.checkSessionValidity(sessionId)){
+            model.addAttribute("message","You Have Been Signed Out. Please Sign In Again");
             return "index";
         }
 
@@ -32,6 +38,8 @@ public class BookPageController {
         if(userId != null){
             return "inventory";
         }
+
+        model.addAttribute("message","Invalid Session Id: Please Sign In Again");
 
         return "index";
 

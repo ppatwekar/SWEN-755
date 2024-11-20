@@ -43,6 +43,10 @@ public class BookController {
     public ResponseEntity<List<Book>> getBooks(@RequestParam String sessionId){
         logger.info("Received request to get all books...");
 
+        if(!sessionService.checkSessionValidity(sessionId)){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
         String userId = this.sessionService.getUserId(sessionId);
 
         boolean isAuth = userDAO.isAuthorizedToViewAdminContent(userId);
