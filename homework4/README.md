@@ -1,7 +1,26 @@
 SWEN-755 Homework 4 Secure Session Management : 
 
+
+Prathamesh Mahendra Patwekar (pp7138@rit.edu)
+Stacy Skalicky (sms7705@g.rit.edu)
+Manikantan Lakshmanan Eakiri (me2083@rit.edu)
+
 Domain: Inventory Management for Online Book Seller
 Additional Documentation:
+
+
+What this does:
+1 Task: Retrieve the book inventory (price and title)
+
+The user authorized to perform the retrieval is the admin.
+
+The user not authorized to perform the retrieval is the customer.
+
+One user is not authenticated demonstrated by the following:
+Random user does not exist in the database 
+Shown by: invalid login credentials, manipulate the session id / hack in an previously existing id
+
+
 
 Class Diagram:
 homework4/documents/classdiagram.png
@@ -11,9 +30,6 @@ homework4/documents/securesessionmanagement.pdf
 
 
 
-Prathamesh Mahendra Patwekar (pp7138@rit.edu)
-Stacy Skalicky (sms7705@g.rit.edu)
-Manikantan Lakshmanan Eakiri (me2083@rit.edu)
 
 
 Running the Project
