@@ -58,6 +58,16 @@ public class SessionService {
         }
         return true;
     }
+
+    public boolean logout(String sessionId){
+        if(sessionIdUserIdMap.containsKey(sessionId)) {
+            userIdSessionIdMap.remove(sessionIdUserIdMap.remove(sessionId));
+            sessionIdExpiryMap.remove(sessionId);
+            return true;
+        }
+        return false;
+    }
+
     public String getUserId(String session)
     {
         return sessionIdUserIdMap.get(session);

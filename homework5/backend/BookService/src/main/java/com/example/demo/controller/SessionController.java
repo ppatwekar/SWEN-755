@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dao.UserDAO;
 import com.example.demo.request.LoginRequest;
+import com.example.demo.request.LogoutRequest;
 import com.example.demo.response.LoginResponse;
 import com.example.demo.service.SessionService;
 import org.springframework.http.HttpStatus;
@@ -42,5 +43,13 @@ public class SessionController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
+
+    @PostMapping("/logout")
+    public HttpStatus logout(@RequestBody LogoutRequest logoutRequest){
+        boolean logoutResult = sessionService.logout(logoutRequest.getSessionId());
+        return logoutResult ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+    }
+
+
 
 }
