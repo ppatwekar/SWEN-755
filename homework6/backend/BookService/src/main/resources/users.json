@@ -1,0 +1,18 @@
+[
+  {
+    "userId": "10001",
+    "username": "4a647de78d0d1b741fd179453801bf1b1fa9909a4f0bef0a7c64c946870a0526",
+    "usernameString":"admin_user",
+    "passwordString": "secureAdminPass123",
+    "password": "b721718f9eaa78b78591621b1dbf98e795f24f4b2b1ce694b8c42ae15981a416",
+    "userRoles": ["Admin"]
+  },
+  {
+    "userId": "10002",
+    "usernameString": "customer_user",
+    "username": "360d5a19cfed4641c2559aa29141781f76ce2ebfcd82b7e8c2e8ae622a7bc0c2",
+    "passwordString": "customerPass456",
+    "password": "4e357a03a80f3844d9d96916ab5a1ca0369ca85602ce698360a5166d786d3d7b",
+    "userRoles": ["Customer"]
+  }
+]

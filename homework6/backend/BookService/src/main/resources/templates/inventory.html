@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        #inventory-section {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        #inventory-section h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        #submit {
+            display: block;
+            width: 200px;
+            padding: 10px;
+            margin: 0 auto;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #submit:hover {
+            background-color: #45a049;
+        }
+
+        .textbox {
+            width: 100%;
+            max-width: 780px;
+            height: 300px;
+            margin-top: 20px;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+            box-sizing: border-box;
+        }
+
+        @media screen and (max-width: 600px) {
+            #inventory-section {
+                padding: 15px;
+                width: 90%;
+            }
+
+            #BookInventory {
+                max-width: 100%;
+            }
+
+            #submit {
+                width: 100%;
+            }
+        }
+    </style>
+    <script>
+        async function getBooks() {
+            //alert('hello!');
+
+            const sessionId = localStorage.getItem('sessionId');
+
+            const url = 'http://localhost:8080/api/books/?sessionId=' + sessionId
+
+            //alert(url);
+
+            const response = await fetch(url);
+            if (!response.ok)
+            {
+                if(response.status == 401)
+                {
+                    alert("Unauthorized Action")
+                }
+            }
+            else
+            {
+                const responseJson = await response.json();
+                const responseStringify = JSON.stringify(responseJson);
+                //alert(responseStringify);
+                var pretty = JSON.stringify(responseJson, undefined, 4);
+                document.getElementById('Book Inventory').value = pretty;
+            }
+
+        }
+    </script>
+
+
+
+    
+</head>
+<body>
+    <!-- Section for Inventory Submission -->
+         
+    <div id="inventory-section">
+        <h2>Inventory</h2>
+        <input id="submit" type="button" value="Get Books" onclick="getBooks();" />
+        <textarea class="textbox" id="Book Inventory" cols=50 rows=50></textarea>
+    </div>
+
+
+
+</body>
+</html>

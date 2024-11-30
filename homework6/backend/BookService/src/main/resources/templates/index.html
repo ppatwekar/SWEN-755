@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Submit Credentials and Inventory</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f9;
+                color: #333;
+            }
+
+
+            h1 {
+                text-align: center;
+                margin-top: 50px;
+                font-size: 2.5em;
+                color: #007BFF;
+            }
+
+
+            #credentials-section, #inventory-section {
+                background-color: white;
+                margin: 20px auto;
+                padding: 20px;
+                max-width: 400px;
+                border-radius: 8px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+
+            h2 {
+                text-align: center;
+                color: #555;
+                font-size: 1.5em;
+                margin-bottom: 15px;
+            }
+
+
+            label {
+                display: block;
+                margin: 10px 0 5px;
+                font-weight: bold;
+            }
+
+
+            input[type="text"], input[type="password"] {
+                width: 95%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 1em;
+            }
+
+
+            button {
+                width: 100%;
+                padding: 10px;
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                font-size: 1.2em;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+
+            @media screen and (max-width: 600px) {
+                h1 {
+                    font-size: 2em;
+                }
+
+                #credentials-section, #inventory-section {
+                    margin: 10px;
+                    padding: 15px;
+                    max-width: 90%;
+                }
+
+                button {
+                    font-size: 1.0em;
+                }
+            }
+        </style>
+
+        <script>
+
+            function handleFormSubmit(event)
+            {
+
+                convertValues().then( result =>
+                {
+                    const username = document.getElementById('a').value
+                    const password = document.getElementById('b').value
+                    console.log(username)
+                    console.log(password)
+
+                    loginRequest = {username: username, password: password};
+                    console.log(loginRequest);
+                    fetch("http://localhost:8080/api/session/",
+                        {method: 'POST',
+                            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+                            body: JSON.stringify(loginRequest)})
+                        .then(response => {
+                            if(!response.ok){
+                                throw new Error('Response not Ok');
+                                return null;
+                            }
+                            {
+                                return response.json();
+                            }
+                        })
+                        .then(data => {
+                            const sessionId = data.sessionId;
+                            localStorage.setItem('sessionId',sessionId);
+                            window.location.href = `http://localhost:8080/books/?sessionId=${sessionId}`
+                        })
+                        .catch(error => {alert("Invalid Login Credentials")});
+                    //console.error(error)});
+            });
+
+            }
+            async function convertValues()
+            {
+                //event.preventDefault();
+                const usernameString = document.getElementById('a').value
+                console.log(usernameString)
+                await sha256(usernameString).then(username => document.getElementById('a').value = username)
+
+                const passwordString = document.getElementById('b').value
+                console.log(passwordString)
+                await sha256(passwordString).then(password =>  document.getElementById('b').value = password)
+            }
+
+            async function sha256(message) {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(message);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+                // Convert the hash to a hexadecimal string
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+                return hashHex;
+            }
+
+        </script>
+
+    </head>
+    <body>
+        <!-- Section for Credentials Submission -->
+        <div id="credentials-section">
+            <h2>Login</h2>
+            <form id="credentials-form" onsubmit="handleFormSubmit(event)">
+                <label for="a">Username:</label>
+                <input type="text" id="a" name="a" required>
+
+                <label for="b">Password:</label>
+                <input type="password" id="b" name="b" required>
+
+                <button type="submit">Sign in</button>
+            </form>
+        </div>
+        <div>
+            <h1 th:text="${message}">Optional</h1>
+        </div>
+    </body>
+</html>
+    
+    
