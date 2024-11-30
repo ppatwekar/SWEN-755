@@ -96,49 +96,46 @@
 
             function handleFormSubmit(event)
             {
-
-                convertValues().then( result =>
-                {
-                    const username = document.getElementById('a').value
-                    const password = document.getElementById('b').value
-                    console.log(username)
-                    console.log(password)
-
-                    loginRequest = {username: username, password: password};
-                    console.log(loginRequest);
-                    fetch("http://localhost:8080/api/session/",
-                        {method: 'POST',
-                            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-                            body: JSON.stringify(loginRequest)})
-                        .then(response => {
-                            if(!response.ok){
-                                throw new Error('Response not Ok');
-                                return null;
-                            }
-                            {
-                                return response.json();
-                            }
-                        })
-                        .then(data => {
-                            const sessionId = data.sessionId;
-                            localStorage.setItem('sessionId',sessionId);
-                            window.location.href = `http://localhost:8080/books/?sessionId=${sessionId}`
-                        })
-                        .catch(error => {alert("Invalid Login Credentials")});
-                    //console.error(error)});
-            });
-
-            }
-            async function convertValues()
-            {
                 //event.preventDefault();
                 const usernameString = document.getElementById('a').value
                 console.log(usernameString)
-                await sha256(usernameString).then(username => document.getElementById('a').value = username)
+                    sha256(usernameString).then(username =>
+                    {
+                        document.getElementById('a').value = username
+                        const passwordString = document.getElementById('b').value
+                        console.log(passwordString)
+                         sha256(passwordString).then(
+                             password =>
+                             {
+                                 document.getElementById('b').value = password
+                                 loginRequest = {username: username, password: password};
+                                 console.log(loginRequest);
+                                 fetch("http://localhost:8080/api/session/",
+                                     {method: 'POST',
+                                         headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+                                         body: JSON.stringify(loginRequest)})
+                                     .then(response => {
+                                         if(!response.ok){
+                                             throw new Error('Response not Ok');
+                                             return null;
+                                         }
+                                         {
+                                             return response.json();
+                                         }
+                                     })
+                                     .then(data => {
+                                         const sessionId = data.sessionId;
+                                         localStorage.setItem('sessionId',sessionId);
+                                         window.location.href = `http://localhost:8080/books/?sessionId=${sessionId}`
+                                     })
+                                     .catch(error => {alert("Invalid Login Credentials")});
+                                 //console.error(error)});
 
-                const passwordString = document.getElementById('b').value
-                console.log(passwordString)
-                await sha256(passwordString).then(password =>  document.getElementById('b').value = password)
+
+                             })
+                    }
+                )
+
             }
 
             async function sha256(message) {
