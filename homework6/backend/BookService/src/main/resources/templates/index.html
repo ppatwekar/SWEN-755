@@ -96,18 +96,17 @@
 
             function handleFormSubmit(event)
             {
-                //event.preventDefault();
+                event.preventDefault();
                 const usernameString = document.getElementById('a').value
                 console.log(usernameString)
                     sha256(usernameString).then(username =>
                     {
-                        document.getElementById('a').value = username
                         const passwordString = document.getElementById('b').value
                         console.log(passwordString)
                          sha256(passwordString).then(
                              password =>
                              {
-                                 document.getElementById('b').value = password
+                                 //document.getElementById('b').value = password
                                  loginRequest = {username: username, password: password};
                                  console.log(loginRequest);
                                  fetch("http://localhost:8080/api/session/",
@@ -133,8 +132,10 @@
 
 
                              })
+
                     }
                 )
+
 
             }
 

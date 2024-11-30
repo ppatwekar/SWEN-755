@@ -9,8 +9,8 @@
   },
   {
     "userId": "10002",
+    "username": "4ec51946af798064e98abd51f40c70f584f3769a4d8ab2237ddf7c5a1b5a478e",
     "usernameString": "customer_user",
-    "username": "360d5a19cfed4641c2559aa29141781f76ce2ebfcd82b7e8c2e8ae622a7bc0c2",
     "passwordString": "customerPass456",
     "password": "4e357a03a80f3844d9d96916ab5a1ca0369ca85602ce698360a5166d786d3d7b",
     "userRoles": ["Customer"]
