@@ -20,6 +20,7 @@
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            position: relative;
         }
 
         #inventory-section h2 {
@@ -63,6 +64,24 @@
             box-sizing: border-box;
         }
 
+        #logout {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 10px 15px;
+            font-size: 14px;
+            color: white;
+            background-color: #ff4d4d;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #logout:hover {
+            background-color: #e60000;
+        }
+
         @media screen and (max-width: 600px) {
             #inventory-section {
                 padding: 15px;
@@ -76,8 +95,14 @@
             #submit {
                 width: 100%;
             }
+
+            #logout {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
         }
     </style>
+
     <script>
         async function getBooks() {
             //alert('hello!');
@@ -104,7 +129,11 @@
                 var pretty = JSON.stringify(responseJson, undefined, 4);
                 document.getElementById('Book Inventory').value = pretty;
             }
-
+        }
+        function logout() {
+            localStorage.removeItem('sessionId');
+            alert("You have been logged out.");
+            window.location.href = 'http://localhost:8080/books/?sessionId=ccf75964df45490680cd6b66d731226d'; // Redirect to login page or another URL
         }
     </script>
 
@@ -116,6 +145,7 @@
     <!-- Section for Inventory Submission -->
          
     <div id="inventory-section">
+        <button id="logout" onclick="logout()">Logout</button>
         <h2>Inventory</h2>
         <input id="submit" type="button" value="Get Books" onclick="getBooks();" />
         <textarea class="textbox" id="Book Inventory" cols=50 rows=50></textarea>
