@@ -37,29 +37,25 @@ public class UserDAO {
         this.initUserMap();
     }
 
-    public boolean authenticate(String hash)
+    public boolean authenticate(String username, String password)
     {
         for (User user : userMap.values())
         {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password))
             {
-                if (user.getHash().equals(hash))
-                {
-                    return true;
-                }
+                return true;
             }
         }
         return false;
     }
 
-    public String getUserId(String hash)
+    public String getUserId(String username, String password)
     {
         for (User user : userMap.values())
         {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password))
             {
-                if (user.getHash().equals(hash))
-                {
-                    return user.getUserId();
-                }
+                return user.getUserId();
             }
         }
         return null;

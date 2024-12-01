@@ -1,16 +1,18 @@
 [
   {
     "userId": "10001",
-    "username": "admin_user",
-    "password": "secureAdminPass123",
-    "userRoles": ["Admin"],
-    "hash": "e785fe8d661fe7348c71488c0f2eac352d818f5ebaf3c39be82097c3bf2fa30a"
+    "username": "4a647de78d0d1b741fd179453801bf1b1fa9909a4f0bef0a7c64c946870a0526",
+    "usernameString":"admin_user",
+    "passwordString": "secureAdminPass123",
+    "password": "b721718f9eaa78b78591621b1dbf98e795f24f4b2b1ce694b8c42ae15981a416",
+    "userRoles": ["Admin"]
   },
   {
     "userId": "10002",
-    "username": "customer_user",
-    "password": "customerPass456",
-    "userRoles": ["Customer"],
-    "hash": "ebe677f3f914c59104fd640ad0661740f42a7cca84bc0aa49fe47b449bd00b11"
+    "username": "4ec51946af798064e98abd51f40c70f584f3769a4d8ab2237ddf7c5a1b5a478e",
+    "usernameString": "customer_user",
+    "passwordString": "customerPass456",
+    "password": "4e357a03a80f3844d9d96916ab5a1ca0369ca85602ce698360a5166d786d3d7b",
+    "userRoles": ["Customer"]
   }
 ]

@@ -93,38 +93,50 @@
         </style>
 
         <script>
-            function handleFormSubmit(event){
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-
-                loginRequest = {username: username, password: password};
-
-                console.log(loginRequest);
-
-                fetch("http://localhost:8080/api/session/",
-
-                {method: 'POST',
-                headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-
-                body: JSON.stringify(loginRequest)})
-                .then(response => {
-                    if(!response.ok){
-                        throw new Error('Response not Ok');
-                        return null;
-                    }
-                    {
-                        return response.json();
-                    }
+            function handleFormSubmit(event)
+            {
+                event.preventDefault();
+                const usernameString = document.getElementById('a').value
+                //console.log(usernameString)
+                sha256(usernameString).then(username =>
+                {
+                    const passwordString = document.getElementById('b').value
+                    //console.log(passwordString)
+                    sha256(passwordString).then(
+                        password =>
+                        {
+                            loginRequest = {username: username, password: password};
+                            console.log(loginRequest);
+                            fetch("http://localhost:8080/api/session/",
+                                {method: 'POST',
+                                    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+                                    body: JSON.stringify(loginRequest)})
+                                .then(response => {
+                                    if(!response.ok){
+                                        throw new Error('Response not Ok');
+                                        return null;
+                                    }
+                                    {
+                                        return response.json();
+                                    }
+                                })
+                                .then(data => {
+                                    const sessionId = data.sessionId;
+                                    localStorage.setItem('sessionId',sessionId);
+                                    window.location.href = `http://localhost:8080/books/?sessionId=${sessionId}`
+                                }).catch(error => {alert("Invalid Login Credentials")});
+                        })
                 })
-                .then(data => {
-                const sessionId = data.sessionId;
-                localStorage.setItem('sessionId',sessionId);
-                window.location.href = `http://localhost:8080/books/?sessionId=${sessionId}`
-                })
-                .catch(error => {alert("Invalid Login Credentials")});
-                    //console.error(error)});
+            }
+            async function sha256(message) {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(message);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
 
-
+                // Convert the hash to a hexadecimal string
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+                return hashHex;
             }
         </script>
 
@@ -134,11 +146,11 @@
         <div id="credentials-section">
             <h2>Login</h2>
             <form id="credentials-form" onsubmit="handleFormSubmit(event)">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <label for="a">Username:</label>
+                <input type="text" id="a" name="a" required>
     
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <label for="b">Password:</label>
+                <input type="password" id="b" name="b" required>
     
                 <button type="submit">Sign in</button>
             </form>

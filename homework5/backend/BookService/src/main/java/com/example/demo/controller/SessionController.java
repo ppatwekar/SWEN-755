@@ -33,9 +33,9 @@ public class SessionController {
         System.out.println("Received Session request");
 
         String hash = SessionService.secureHashCreation(loginRequest.getUsername(), loginRequest.getPassword());
-        if (userDAO.authenticate(hash))
+        if (userDAO.authenticate(loginRequest.getUsername(), loginRequest.getPassword()))
         {
-            String session = sessionService.createSession(userDAO.getUserId(hash));
+            String session = sessionService.createSession(userDAO.getUserId(loginRequest.getUsername(), loginRequest.getPassword()));
             return ResponseEntity.ok(new LoginResponse(session));
         }
         else
