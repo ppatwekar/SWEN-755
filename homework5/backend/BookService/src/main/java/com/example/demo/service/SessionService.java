@@ -7,10 +7,7 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class SessionService {
@@ -96,5 +93,17 @@ public class SessionService {
         return hexString.toString();
 
 
+    }
+
+    public Map<String, Date> getSessionIdExpiryMap() {
+        return sessionIdExpiryMap;
+    }
+
+    public Map<String,String> getSessionIdUserIdMap() {
+        return sessionIdUserIdMap;
+    }
+
+    public Map<String, String> getUserIdSessionIdMap() {
+        return userIdSessionIdMap;
     }
 }

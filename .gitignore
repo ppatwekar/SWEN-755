@@ -1,4 +1,6 @@
-**build/
-**./gradle/
+**/build/
+**/*.log
+**/.idea/
+**/.gradle/
 homework1/LightbulbController/.idea/misc.xml
 homework1/LightbulbSystem/.idea/misc.xml
