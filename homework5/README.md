@@ -28,12 +28,10 @@ This should be run on Windows 10/11 PC/Laptop:
 
 
 Class Diagram:
-homework5/documents/classdiagram.png
+homework5/documents/hw5_classdiagram.png
 
 Power Point Slides:
-homework5/documents/securesessionmanagement.pdf 
-
-Execution and Installation Videos:
+homework5/documents/Homework5_Slides.pdf 
 
 
 Recreating Breaker 1:
@@ -84,7 +82,6 @@ What we did for breaker 5/6: Added Cypress front end tests to detect this and fa
 
 
 
-
 Running the Project
 
 Make sure you have Java 17+ installed on your local system to be able to run this project. This can be configured into Intellij to run both projects. 
@@ -107,12 +104,12 @@ Update your environment variables for your user account on windows:
 C:\Program Files\nodejs\
 
 
+Cypress Steps:
+
+
+
 
 See information above to repeat breakers. 
-
-
-
-
 
 
 
