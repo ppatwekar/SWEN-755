@@ -91,21 +91,6 @@ Step 1.
 Unzip the package into a new directory
 Using a integrated development environment (Intellij) was used by team.
 
-Install cypress and node.js for your system and add node js to your environment 
-node -v
-This should print the Node.js version. 
-If not, install Node.js from https://nodejs.org/en. 
-Check npm version:
-
-npm -v
-This should print the npm version.
-
-Update your environment variables for your user account on windows:
-C:\Program Files\nodejs\
-
-
-Cypress Steps:
-
 
 
 
@@ -169,25 +154,6 @@ Step 5. Attempt to click to click "Get Books"
 
 Step 6. Please note, whether Customer or Administrator the session will log out after 1 minute and the user will be informed on the login page
 
-
-
-C:\Users\sskal\OneDrive\Documents\Repository\SWEN-755\homework4\backend\BookService\src\main\resources
-
-Setting up Cypress:
-
-npx cypress open
-select y 
-Allow access 
-E2E Testing 
-Continue
-select Chrome
-Start E2E Testing in Chrome button
-Create new spec
-Allow it to create the default
-Now redirect the url to our tesT:
-https://example.cypress.io/__/#/specs/runner?file=cypress/e2e/spec.cy.js
-to 
-https://example.cypress.io/__/#/specs/runner?file=cypress/e2e/spec.cy.js
 
 
 
