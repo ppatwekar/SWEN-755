@@ -8,6 +8,32 @@ Manikantan Lakshmanan Eakiri (me2083@rit.edu)
 Domain: Inventory Management for Online Book Seller
 
 
+To run testing:
+Cypress Framework Tests:
+For the failing case, please see readme in Homework4/backend/Testing
+
+For the passing case, please see readme in Homework5/backend/Testing
+
+Additional JUnit Framework Passing Tests:
+To run the JUnit Tests in BookService, navigate to the BookService directory in the terminal.
+To run the tests, type:
+.\gradlew test (windows)
+./gradlew test (macOS)
+The unit tests are present in homework5/backend/BookService/src/test/java/com/example/demo/workflow/SessionWorkFlowTests.java
+The tests test the following:
+Testing Logout
+Login (obtain sessionId)
+Check internal maps for session id (maps containing sessionId)
+Logout
+Check internal maps being empty (maps containing sessionId)
+Testing Session Timeout
+Login (obtain sessionId)
+Make REST call to show session is valid and calls work (using sessionId)
+Wait 61 seconds (greater than session timeout)
+Test for expired access (unauthorized)
+
+
+
 Additional Documentation:
 
 What this does:
