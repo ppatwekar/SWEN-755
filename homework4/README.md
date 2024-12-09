@@ -20,6 +20,7 @@ One user is not authenticated demonstrated by the following:
 Random user does not exist in the database 
 Shown by: invalid login credentials, manipulate the session id / hack in an previously existing id
 
+TESTING: Testing instructions are available in backend/Testing/README.md
 
 
 Class Diagram:
